@@ -39,16 +39,20 @@ function updateGauge(angle) {
 function handleOrientation(event) {
     if (!isMeasuring) return;
 
-    let tilt;
+    let tilt = 0;
 
-    // Cek orientasi layar
-    if (window.innerWidth > window.innerHeight) {
-        // LANDSCAPE
-        tilt = event.beta;  
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+
+    if (isLandscape) {
+        // Android landscape paling stabil pakai beta
+        tilt = event.beta;
     } else {
-        // PORTRAIT
+        // Portrait pakai gamma
         tilt = event.gamma;
     }
+
+    // Kadang Android kebalik arah
+    tilt = -tilt;
 
     updateGauge(tilt);
 }
@@ -93,5 +97,6 @@ function resetMeasurement() {
 
 startButton.addEventListener('click', startMeasurement);
 resetButton.addEventListener('click', resetMeasurement);
+
 
 updateGauge(0);
