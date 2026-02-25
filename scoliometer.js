@@ -1,22 +1,30 @@
 const startButton = document.getElementById('start-button');
 const resetButton = document.getElementById('reset-button');
+const finishButton = document.getElementById('finish-button');
+
 const measurementValue = document.getElementById('measurement-value');
 const gaugeLine = document.getElementById('gauge-line');
 const interpretationText = document.getElementById('interpretation-text');
 
+const resultScreen = document.getElementById('result-screen');
+const resultAngle = document.getElementById('result-angle');
+const resultMessage = document.getElementById('result-message');
+
 let isMeasuring = false;
-let zeroOffset = 0; // untuk kalibrasi
+let zeroOffset = 0;
+let lastAngle = 0;
 
 function updateGauge(angle) {
 
     const correctedAngle = angle - zeroOffset;
+    lastAngle = Math.abs(correctedAngle);
 
     const displayAngle = Math.min(Math.max(correctedAngle, -30), 30);
 
     gaugeLine.style.transform = `rotate(${displayAngle}deg)`;
-    measurementValue.textContent = `${Math.abs(correctedAngle).toFixed(1)}°`;
+    measurementValue.textContent = `${lastAngle.toFixed(1)}°`;
 
-    const absAngle = Math.abs(correctedAngle);
+    const absAngle = lastAngle;
 
     if (absAngle >= 7) {
         gaugeLine.style.backgroundColor = 'red';
@@ -44,17 +52,34 @@ function handleOrientation(event) {
     const isLandscape = window.matchMedia("(orientation: landscape)").matches;
 
     if (isLandscape) {
-        // Android landscape paling stabil pakai beta
         tilt = event.beta;
     } else {
-        // Portrait pakai gamma
         tilt = event.gamma;
     }
 
-    // Kadang Android kebalik arah
     tilt = -tilt;
 
     updateGauge(tilt);
+}
+
+async function lockLandscape() {
+    try {
+        if (screen.orientation && screen.orientation.lock) {
+            await screen.orientation.lock("landscape");
+        }
+    } catch (err) {
+        console.log("Landscape lock gagal:", err);
+    }
+}
+
+async function unlockPortrait() {
+    try {
+        if (screen.orientation && screen.orientation.lock) {
+            await screen.orientation.lock("portrait");
+        }
+    } catch (err) {
+        console.log("Portrait lock gagal:", err);
+    }
 }
 
 function startMeasurement() {
@@ -63,8 +88,10 @@ function startMeasurement() {
     isMeasuring = true;
     startButton.textContent = 'Mengukur...';
     startButton.disabled = true;
+    finishButton.style.display = "inline-block";
 
-    // Untuk iPhone (harus minta izin)
+    lockLandscape();
+
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
         DeviceOrientationEvent.requestPermission()
             .then(permissionState => {
@@ -80,6 +107,31 @@ function startMeasurement() {
     }
 }
 
+function finishMeasurement() {
+    isMeasuring = false;
+    window.removeEventListener("deviceorientation", handleOrientation);
+
+    unlockPortrait();
+
+    document.querySelector(".gauge-container").style.display = "none";
+    document.querySelector(".controls").style.display = "none";
+    document.querySelector(".interpretation-area").style.display = "none";
+
+    resultScreen.style.display = "block";
+    resultAngle.textContent = `${lastAngle.toFixed(1)}°`;
+
+    if (lastAngle >= 7) {
+        resultMessage.textContent = "Hasil menunjukkan indikasi rotasi signifikan. Disarankan konsultasi medis.";
+        resultMessage.style.color = "red";
+    } else if (lastAngle >= 5) {
+        resultMessage.textContent = "Perlu pemantauan rutin.";
+        resultMessage.style.color = "orange";
+    } else {
+        resultMessage.textContent = "Dalam batas normal.";
+        resultMessage.style.color = "#4863f7";
+    }
+}
+
 function resetMeasurement() {
     isMeasuring = false;
 
@@ -90,6 +142,7 @@ function resetMeasurement() {
 
     startButton.textContent = 'Mulai Pengukuran';
     startButton.disabled = false;
+    finishButton.style.display = "none";
 
     interpretationText.textContent =
         'Tekan "Mulai Pengukuran" untuk memulai proses.';
@@ -97,5 +150,6 @@ function resetMeasurement() {
 
 startButton.addEventListener('click', startMeasurement);
 resetButton.addEventListener('click', resetMeasurement);
+finishButton.addEventListener('click', finishMeasurement);
 
 updateGauge(0);
