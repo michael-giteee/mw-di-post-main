@@ -253,3 +253,59 @@ html, body {
 body {
     padding-bottom: env(safe-area-inset-bottom);
 }
+
+/* ============================= */
+/* 📱 LANDSCAPE MODE KHUSUS */
+/* ============================= */
+
+@media screen and (orientation: landscape) {
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        max-width: 700px;
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+    }
+
+    /* 🔵 Gauge lebih besar & full terlihat */
+    .gauge-ring {
+        width: 250px;
+        height: 250px;
+        margin: 20px auto;
+    }
+
+    .gauge-line {
+        height: 120px;
+    }
+
+    .measurement-value {
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    /* 🚀 Bottom nav pindah ke atas */
+    .bottom-nav {
+        position: fixed;
+        top: 0;
+        bottom: auto;
+        width: 100%;
+        z-index: 999;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Supaya konten tidak ketutup nav */
+    .container {
+        margin-top: 70px;
+    }
+
+    /* Supaya interpretasi tidak ketutup */
+    .interpretation-area {
+        margin-bottom: 30px;
+    }
+}
