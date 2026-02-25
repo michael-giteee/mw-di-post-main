@@ -204,6 +204,12 @@ header {
     .interpretation-area {
         padding-bottom: 140px;
     }
+
+        .measuring {
+    background: #6C3FC5 !important;
+    color: white !important;
+    }
 }
+
 
 
