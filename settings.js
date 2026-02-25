@@ -1,22 +1,62 @@
-// Mengambil elemen-elemen dari DOM
-const postureToggle = document.getElementById('postureToggle');
-const exerciseToggle = document.getElementById('exerciseToggle');
-const frequencySelect = document.getElementById('frequencySelect');
-const freqLabel = document.getElementById('freqLabel');
+document.addEventListener("DOMContentLoaded", function () {
 
-// Logika saat Posture Reminder diubah
-postureToggle.addEventListener('change', () => {
-    console.log("Posture Reminder aktif:", postureToggle.checked);
-});
+    // ==============================
+    // Ambil elemen dari DOM
+    // ==============================
 
-// Logika saat Frekuensi diubah
-frequencySelect.addEventListener('change', (e) => {
-    const value = e.target.value;
-    freqLabel.textContent = `Setiap ${value} menit`;
-    console.log("Frekuensi diubah menjadi:", value, "menit");
-});
+    const postureToggle = document.getElementById('postureToggle');
+    const exerciseToggle = document.getElementById('exerciseToggle');
+    const frequencySelect = document.getElementById('frequencySelect');
+    const freqLabel = document.getElementById('freqLabel');
+    const logoutBtn = document.querySelector(".logout-btn");
 
-// Logika saat Latihan Harian diubah
-exerciseToggle.addEventListener('change', () => {
-    console.log("Latihan Harian aktif:", exerciseToggle.checked);
+    // ==============================
+    // Posture Reminder
+    // ==============================
+
+    if (postureToggle) {
+        postureToggle.addEventListener('change', () => {
+            console.log("Posture Reminder aktif:", postureToggle.checked);
+        });
+    }
+
+    // ==============================
+    // Frekuensi
+    // ==============================
+
+    if (frequencySelect && freqLabel) {
+        frequencySelect.addEventListener('change', (e) => {
+            const value = e.target.value;
+            freqLabel.textContent = `Setiap ${value} menit`;
+            console.log("Frekuensi diubah menjadi:", value, "menit");
+        });
+    }
+
+    // ==============================
+    // Latihan Harian
+    // ==============================
+
+    if (exerciseToggle) {
+        exerciseToggle.addEventListener('change', () => {
+            console.log("Latihan Harian aktif:", exerciseToggle.checked);
+        });
+    }
+
+    // ==============================
+    // 🔒 LOGOUT
+    // ==============================
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", function () {
+
+            const konfirmasi = confirm("Yakin ingin keluar?");
+
+            if (konfirmasi) {
+                localStorage.removeItem("kelompokUsia");
+                window.location.href = "index.html";
+            }
+
+        });
+    }
+
 });
