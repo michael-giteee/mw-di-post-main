@@ -30,6 +30,39 @@ function changeLanguage(lang) {
 }
 
 // Tombol navigasi Anda yang sudah ada
-document.getElementById('startJourneyBtn').addEventListener('click', function() {
-    window.location.href = 'bodyscan.html';
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("registerForm");
+
+    form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const usiaInput = document.getElementById("usia").value;
+        const usia = parseInt(usiaInput);
+
+        if (!usiaInput) {
+            alert("Silakan masukkan usia terlebih dahulu");
+            return;
+        }
+
+        if (usia < 17) {
+            alert("Maaf, usia tidak memenuhi syarat.");
+            return;
+        }
+
+        let kelompokUsia = "";
+
+        if (usia >= 17 && usia <= 55) {
+            kelompokUsia = "kelompok1";
+        } else {
+            kelompokUsia = "kelompok2";
+        }
+
+        localStorage.setItem("kelompokUsia", kelompokUsia);
+        localStorage.setItem("usia", usia);
+
+        window.location.href = "bodyscan.html";
+    });
+
 });
