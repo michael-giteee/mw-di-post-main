@@ -29,6 +29,7 @@
 
         <div class="controls">
             <button class="primary-button" id="start-button">Mulai Pengukuran</button>
+            <button class="secondary-button" id="finish-button" style="display:none;">Selesai</button>
             <button class="secondary-button" id="reset-button">Reset</button>
         </div>
         
@@ -36,13 +37,26 @@
             <h2>Interpretasi Hasil:</h2>
             <p id="interpretation-text">Tekan "Mulai Pengukuran" untuk memulai proses.</p>
         </div>
+
+        <!-- 🔥 BAGIAN HASIL (akan muncul setelah selesai) -->
+        <div class="result-screen" id="result-screen" style="display:none;">
+            <h2>Hasil Pemeriksaan</h2>
+            <p class="result-angle" id="result-angle">0°</p>
+            <p class="result-message" id="result-message"></p>
+            <button class="primary-button" onclick="location.reload()">Tes Lagi</button>
+        </div>
+
     </div>
 
     <nav class="bottom-nav">
-    <a href="dashboard.html" class="nav-item active">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
-    </a>
+        <a href="dashboard.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="scoliometer.html" class="nav-item active">
+            <i class="fas fa-ruler-triangle"></i>
+            <span>Scoliometer</span>
+        </a>
     </nav>
     
     <script src="scoliometer.js"></script>
