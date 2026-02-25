@@ -98,5 +98,4 @@ function resetMeasurement() {
 startButton.addEventListener('click', startMeasurement);
 resetButton.addEventListener('click', resetMeasurement);
 
-
 updateGauge(0);
