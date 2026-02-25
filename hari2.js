@@ -1,29 +1,87 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const allStartBtns = document.querySelectorAll('.start-btn');
-    const activeDayNumber = 2; // Hari 2 adalah hari yang harus ditautkan ke detail
-    const listBackBtn = document.querySelector('.list-back-btn');
-    
-    // --- 1. Logika Tombol Kembali (←) ---
-    if (listBackBtn) {
-        listBackBtn.href = 'programlatihan.html'; 
-        listBackBtn.style.visibility = 'visible';
+
+    // ============================
+    // 🔒 CEK KELOMPOK USIA
+    // ============================
+
+    const kelompok = localStorage.getItem("kelompokUsia");
+
+    if (!kelompok) {
+        window.location.href = "index.html";
+        return;
     }
-    
-    // --- 2. Logika Tombol Mulai ---
-    allStartBtns.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const day = this.getAttribute('data-day');
-            
-            if (this.classList.contains('rest-day-btn')) {
-                // Untuk Hari Istirahat
-                alert(`Hari ${day}: Istirahat! Nikmati pemulihan Anda.`);
-            } else if (parseInt(day) === activeDayNumber) {
-                window.location.href = 'hari2.html'; 
-            } else {
-                alert(`Anda mengklik 'Mulai' untuk Hari ${day}. Anda dapat memulai hari ini kapan saja!`);
+
+    const allExercises = document.querySelectorAll(".exercise-item");
+    let exercises = Array.from(allExercises); // ubah ke array biar bisa difilter
+
+    // ============================
+    // 🧠 MODE KELOMPOK 2 (Senior)
+    // ============================
+
+    if (kelompok === "kelompok2") {
+
+        const title = document.querySelector("h1");
+        if (title) {
+            title.textContent = "Hari 2 - Program Senior";
+        }
+
+        document.body.classList.add("senior-mode");
+
+        // 🔥 Batasi hanya 5 latihan pertama
+        exercises.forEach((item, index) => {
+            if (index >= 5) {
+                item.style.display = "none";
             }
         });
-    });
-    
+
+        // Update array hanya yg tampil
+        exercises = exercises.slice(0, 5);
+    }
+
+    // ============================
+    // ▶️ SISTEM LANJUTKAN LATIHAN
+    // ============================
+
+    const continueBtn = document.querySelector(".continue-btn");
+    const restartBtn = document.querySelector(".restart-btn");
+    const progressText = document.querySelector(".small-text");
+
+    let currentIndex = 0;
+
+    function updateActiveExercise() {
+        exercises.forEach((item, index) => {
+            item.classList.remove("active-exercise");
+
+            if (index === currentIndex) {
+                item.classList.add("active-exercise");
+                item.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        });
+
+        let progress = Math.round(((currentIndex + 1) / exercises.length) * 100);
+
+        if (progressText) {
+            progressText.textContent = `Pemanasan ${progress}%`;
+        }
+    }
+
+    if (continueBtn) {
+        continueBtn.addEventListener("click", function () {
+            if (currentIndex < exercises.length - 1) {
+                currentIndex++;
+                updateActiveExercise();
+            } else {
+                alert("Latihan selesai! 🎉");
+            }
+        });
+    }
+
+    if (restartBtn) {
+        restartBtn.addEventListener("click", function () {
+            currentIndex = 0;
+            updateActiveExercise();
+        });
+    }
+
+    updateActiveExercise();
 });
