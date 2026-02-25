@@ -167,95 +167,8 @@ header {
 .gauge-line {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
-
 /* ============================= */
-/* 📱 FIX LANDSCAPE MODE */
-/* ============================= */
-
-@media screen and (orientation: landscape) {
-
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .container {
-        padding-bottom: 120px;
-        max-width: 600px;
-        width: 100%;
-        padding: 20px;
-        text-align: center;
-    }
-
-    .gauge-ring {
-        width: 220px;
-        height: 220px;
-        margin: 0 auto;
-    }
-
-    .gauge-line {
-        height: 110px;
-    }
-
-    .measurement-value {
-        font-size: 32px;
-        font-weight: bold;
-    }
-
-}
-
-/* ============================= */
-/* 📊 RESULT SCREEN STYLE */
-/* ============================= */
-
-.result-screen {
-    text-align: center;
-    margin-top: 30px;
-    animation: fadeIn 0.4s ease;
-}
-
-.result-angle {
-    font-size: 48px;
-    font-weight: bold;
-    margin: 15px 0;
-}
-
-.result-message {
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-/* ============================= */
-/* ✨ FADE ANIMATION */
-/* ============================= */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ============================= */
-/* 📐 GENERAL FIX */
-/* ============================= */
-
-html, body {
-    height: 100%;
-    overflow-x: hidden;
-}
-
-body {
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* ============================= */
-/* 📱 LANDSCAPE MODE KHUSUS */
+/* 📱 FINAL LANDSCAPE MODE CLEAN */
 /* ============================= */
 
 @media screen and (orientation: landscape) {
@@ -270,10 +183,11 @@ body {
         max-width: 700px;
         width: 100%;
         padding: 20px;
+        margin-top: 70px; /* karena nav pindah atas */
         text-align: center;
     }
 
-    /* 🔵 Gauge lebih besar & full terlihat */
+    /* 🔵 Gauge besar & jelas */
     .gauge-ring {
         width: 250px;
         height: 250px;
@@ -299,40 +213,32 @@ body {
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
-    /* Supaya konten tidak ketutup nav */
-    .container {
-        margin-top: 70px;
-    }
-
-    /* Supaya interpretasi tidak ketutup */
-    .interpretation-area {
-        margin-bottom: 30px;
-    }
-}
-
-
-@media screen and (orientation: landscape) {
-
-    #start-button {
+    /* 🔘 Tombol jadi kecil & di pojok atas */
+    #start-button,
+    #finish-button,
+    #selesai-button {
         position: fixed;
+        top: 15px;
         right: 15px;
-        bottom: 90px;
-        padding: 8px 16px;
+        padding: 6px 14px;
         font-size: 13px;
         border-radius: 20px;
-        z-index: 999;
+        width: auto;
+        z-index: 1000;
     }
 
     #reset-button {
         position: fixed;
+        top: 15px;
         left: 15px;
-        bottom: 90px;
-        padding: 8px 16px;
+        padding: 6px 14px;
         font-size: 13px;
         border-radius: 20px;
-        z-index: 999;
+        width: auto;
+        z-index: 1000;
     }
 
+    /* Supaya interpretasi tidak ketutup */
     .interpretation-area {
         padding-bottom: 120px;
     }
