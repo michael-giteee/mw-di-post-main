@@ -160,13 +160,7 @@ header {
 
 
 
-/* ============================= */
-/* 🎯 SMOOTH ANIMATION */
-/* ============================= */
 
-.gauge-line {
-    transition: transform 0.2s ease, background-color 0.3s ease;
-}
 /* ============================= */
 /* 📱 LANDSCAPE MODE FIX FINAL */
 /* ============================= */
@@ -233,3 +227,4 @@ header {
     }
 
 }
+
