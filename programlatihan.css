@@ -41,7 +41,7 @@ body {
 }
 
 .back-btn {
-    font-size: 30px;
+    font-size: 40px;
     text-decoration: none;
     color: var(--text-dark); /* Panah Hitam */
     padding: 10px;
@@ -210,3 +210,4 @@ body {
     opacity: 0.8;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
+
