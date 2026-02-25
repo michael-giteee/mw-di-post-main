@@ -160,31 +160,90 @@ header {
 
 
 
-/* FIX LAYOUT SAAT LANDSCAPE */
+/* ============================= */
+/* 🎯 SMOOTH ANIMATION */
+/* ============================= */
+
+.gauge-line {
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+/* ============================= */
+/* 📱 FIX LANDSCAPE MODE */
+/* ============================= */
+
 @media screen and (orientation: landscape) {
 
     body {
+        display: flex;
         justify-content: center;
         align-items: center;
     }
 
     .container {
-        padding-bottom: 160px;
+        padding-bottom: 120px;
         max-width: 600px;
         width: 100%;
         padding: 20px;
+        text-align: center;
     }
 
     .gauge-ring {
-        width: 200px;
-        height: 200px;
+        width: 220px;
+        height: 220px;
+        margin: 0 auto;
     }
 
     .gauge-line {
-        height: 100px;
+        height: 110px;
+    }
+
+    .measurement-value {
+        font-size: 32px;
+        font-weight: bold;
     }
 
 }
+
+/* ============================= */
+/* 📊 RESULT SCREEN STYLE */
+/* ============================= */
+
+.result-screen {
+    text-align: center;
+    margin-top: 30px;
+    animation: fadeIn 0.4s ease;
+}
+
+.result-angle {
+    font-size: 48px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.result-message {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* ============================= */
+/* ✨ FADE ANIMATION */
+/* ============================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================= */
+/* 📐 GENERAL FIX */
+/* ============================= */
 
 html, body {
     height: 100%;
