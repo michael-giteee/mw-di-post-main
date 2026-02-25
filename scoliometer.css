@@ -309,3 +309,31 @@ body {
         margin-bottom: 30px;
     }
 }
+
+
+@media screen and (orientation: landscape) {
+
+    #start-button {
+        position: fixed;
+        right: 15px;
+        bottom: 90px;
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 20px;
+        z-index: 999;
+    }
+
+    #reset-button {
+        position: fixed;
+        left: 15px;
+        bottom: 90px;
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 20px;
+        z-index: 999;
+    }
+
+    .interpretation-area {
+        padding-bottom: 120px;
+    }
+}
