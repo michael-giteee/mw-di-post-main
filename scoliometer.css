@@ -162,69 +162,50 @@ header {
 
 
 /* ============================= */
-/* 📱 LANDSCAPE MODE FIX FINAL */
+/* 📱 LANDSCAPE - FIX BUTTON FINAL */
 /* ============================= */
 
 @media screen and (orientation: landscape) {
 
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .container {
-        max-width: 700px;
-        width: 100%;
-        padding: 20px;
-        text-align: center;
-    }
-
-    /* 🔵 Gauge */
+    /* Gauge tetap besar */
     .gauge-ring {
         width: 250px;
         height: 250px;
         margin: 20px auto;
     }
 
-    .gauge-line {
-        height: 120px;
-    }
-
     .measurement-value {
         font-size: 36px;
-        font-weight: bold;
     }
 
-    /* 🔘 Tombol kecil di atas */
-    #start-button,
-    #finish-button,
-    #selesai-button {
-        position: fixed;
-        top: 15px;
-        right: 15px;
-        padding: 6px 14px;
-        font-size: 13px;
-        border-radius: 20px;
-        width: auto;
-        z-index: 1000;
+    /* Override tombol full width dari main.css */
+    .controls button {
+        width: auto !important;
+        padding: 6px 14px !important;
+        font-size: 13px !important;
+        border-radius: 20px !important;
     }
 
+    /* Reset kiri atas */
     #reset-button {
         position: fixed;
         top: 15px;
         left: 15px;
-        padding: 6px 14px;
-        font-size: 13px;
-        border-radius: 20px;
-        width: auto;
-        z-index: 1000;
+        z-index: 9999;
     }
 
-    /* Biar hasil gak ketutup bottom nav */
+    /* Start & Finish kanan atas */
+    #start-button,
+    #finish-button {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 9999;
+    }
+
+    /* Supaya hasil tidak ketutup bottom nav */
     .interpretation-area {
-        padding-bottom: 120px;
+        padding-bottom: 140px;
     }
-
 }
 
