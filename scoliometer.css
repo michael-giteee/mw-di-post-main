@@ -14,9 +14,10 @@ body {
     width: 100%;
     max-width: 450px;
     padding: 20px;
-    padding-bottom: 80px; 
+    padding-bottom: 120px; /* tambah ruang */
     flex-grow: 1;
     background-color: #ffffff;
+    overflow-y: auto; /* supaya bisa scroll */
 }
 
 header {
@@ -168,6 +169,7 @@ header {
     }
 
     .container {
+        padding-bottom: 160px;
         max-width: 600px;
         width: 100%;
         padding: 20px;
@@ -187,4 +189,9 @@ header {
 html, body {
     height: 100%;
     overflow-x: hidden;
+
+}
+
+body {
+    padding-bottom: env(safe-area-inset-bottom);
 }
