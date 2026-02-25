@@ -87,10 +87,11 @@ function startMeasurement() {
 
     isMeasuring = true;
 
-    // ❌ Hilangkan tombol Mulai
-    startButton.style.display = "none";
+    // 🔥 Ubah teks jadi Mengukur...
+    startButton.textContent = "Mengukur...";
+    startButton.classList.add("measuring");
 
-    // ✅ Munculkan tombol Selesai
+    // Tampilkan tombol selesai
     finishButton.style.display = "inline-block";
 
     lockLandscape();
@@ -109,7 +110,6 @@ function startMeasurement() {
         window.addEventListener("deviceorientation", handleOrientation);
     }
 }
-
 
 function finishMeasurement() {
     isMeasuring = false;
@@ -144,11 +144,10 @@ function resetMeasurement() {
     zeroOffset = 0;
     updateGauge(0);
 
-    // ✅ Munculkan kembali tombol Mulai
-    startButton.style.display = "inline-block";
-    startButton.disabled = false;
+    // 🔁 Balikin tombol ke awal
+    startButton.textContent = "Mulai Pengukuran";
+    startButton.classList.remove("measuring");
 
-    // ❌ Sembunyikan tombol Selesai
     finishButton.style.display = "none";
 
     interpretationText.textContent =
@@ -161,3 +160,4 @@ finishButton.addEventListener('click', finishMeasurement);
 
 finishButton.style.display = "none";
 updateGauge(0);
+
