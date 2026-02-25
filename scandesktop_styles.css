@@ -1,0 +1,246 @@
+/* Aturan dasar dan reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0; 
+    padding: 20px;
+}
+
+/* Kontainer utama aplikasi */
+.app-container {
+    width: 90%;
+    max-width: 1000px; 
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #a0e0ff;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header, Title, Value (Dibiarkan sama) */
+header { display: flex; justify-content: space-between; padding: 10px 0; }
+.nav-button { background: none; border: none; color: #000000; font-size: 16px; cursor: pointer; font-weight: 700; opacity: 0.8; }
+.meter-display { flex-grow: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 20px 0; }
+.meter-title { font-size: 18px; font-weight: 400; margin-bottom: 5px; color: #000000; }
+.measurement-value { font-size: 60px; font-weight: 700; color: #000000; margin-bottom: 20px; position: relative; z-index: 20; }
+.action-buttons-top { display: flex; justify-content: space-between; width: 100%; max-width: 800px; position: relative; top: -150px; margin-bottom: -130px; z-index: 10; margin: 0 auto; }
+.action-buttons-bottom { display: flex; gap: 10px; margin-top: auto; padding-bottom: 10px; }
+.action-button { background-color: #ffffff; color: #000000; border: 1px solid #999; border-radius: 5px; cursor: pointer; font-weight: 700; transition: background-color 0.2s; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+.action-button.large { padding: 10px 20px; width: 100px; }
+.action-button.small { padding: 8px 15px; font-size: 12px; flex: 1; white-space: nowrap; }
+
+
+/* --- Meter Arc Styling (180 Degree Bottom) --- */
+.meter-arc-container {
+    position: relative;
+    width: 400px;
+    height: 200px; 
+    overflow: hidden; 
+    margin-bottom: 30px;
+}
+
+.meter-arc {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px; 
+    border-radius: 50%;
+    
+    /* Busur 180°: Hilangkan border atas, biarkan bawah */
+    border: 3px solid #000000; 
+    border-color: #000000 #000000 transparent #000000; 
+    
+    /* Putar 180 deg agar bagian busur (border) berada di bawah */
+    transform: translateX(-50%) rotate(180deg); 
+}
+
+/* Garis Skala pada Busur */
+.scale-line {
+    transform: translate(-50%, -50%) rotate(var(--i)) translateY(195px); 
+}
+
+.scale-line.major {
+    transform: translate(-50%, -50%) rotate(var(--i)) translateY(190px);
+}
+
+/* Label Angka Skala */
+.scale-labels {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.scale-labels .label-pos {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #000000;
+    font-size: 12px;
+    font-weight: 700;
+    z-index: 1;
+}
+
+/* Jarum Penunjuk */
+.meter-needle {
+    position: absolute;
+    top: 150px; 
+    left: 50%;
+    width: 4px; 
+    height: 140px; 
+    background-color: #dc3545; 
+    transform-origin: top center; 
+    transition: transform 0.2s ease-out; 
+    transform: rotate(90deg); 
+    z-index: 10;
+}
+
+/* Titik Pusat Jarum */
+.center-dot {
+    position: absolute;
+    top: 147px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background-color: #000000;
+    border-radius: 50%;
+    z-index: 12;
+}
+
+.arc-overlay {
+    display: none;
+}
+
+@media screen and (orientation: landscape) and (max-width: 900px) {
+    
+    .app-container {
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        min-height: 100vh;
+        padding: 10px; 
+        justify-content: space-around;
+    }
+
+    .action-buttons-top {
+        top: -100px; /* Angkat tombol sedikit lebih tinggi */
+        margin-bottom: -80px;
+        max-width: 400px; /* Pertahankan lebar tombol agar tidak terlalu lebar di layar besar */
+    }
+
+    .measurement-value {
+        font-size: 70px; /* Perbesar sedikit */
+        margin-top: 5px; /* Sesuaikan jarak ke atas */
+        margin-bottom: 5px;
+    }
+    
+    .meter-arc-container {
+        width: 350px; /* Turunkan sedikit jika 400px terlalu besar untuk HP landscape */
+        height: 175px; 
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .meter-arc {
+        width: 350px;
+        height: 350px;
+    }
+
+    .scale-line {
+        transform: translate(-50%, -50%) rotate(var(--i)) translateY(170px); 
+    }
+    .scale-line.major {
+        transform: translate(-50%, -50%) rotate(var(--i)) translateY(165px); 
+    }
+    .scale-labels .label-pos {
+        transform: translate(-50%, -50%) rotate(var(--i)) translateY(145px) rotate(calc(var(--i) * -1)); 
+    }
+    .meter-needle {
+        height: 165px;
+        top: 175px; 
+    }
+    .center-dot {
+        top: 172px; 
+    }
+
+    .action-buttons-bottom {
+        padding-bottom: 5px; 
+        
+    }
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0; 
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 450px; 
+    margin: 0 auto;
+    height: 70px;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    display: flex; 
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    z-index: 1000; 
+}
+
+.nav-item {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    text-decoration: none; 
+    color: #888;
+    font-size: 12px;
+    transition: color 0.3s; 
+    flex-grow: 1; 
+    padding: 5px 0;
+    position: relative; 
+    z-index: 10;
+}
+
+.nav-icon { 
+    font-size: 20px; 
+    margin-bottom: 3px;
+    line-height: 1; 
+    transition: transform 0.2s;
+}
+
+.nav-item.active { 
+    color: #4863f7; 
+    font-weight: bold; 
+}
+
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    top: 5px; 
+    width: 65px; 
+    height: 40px; 
+    background-color: #e6e9fe; 
+    border-radius: 12px;
+    z-index: -1; 
+}
+
+.nav-item.active .nav-icon {
+    transform: scale(1.1); 
+}

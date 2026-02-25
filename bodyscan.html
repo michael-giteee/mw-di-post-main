@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoliosis Meter - Web App</title>
+    <link rel="stylesheet" href="scandesktop_styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+        </header>
+        
+        <main class="meter-display">
+            <div class="meter-title" data-i18n>SCOLIOSIS METER</div>
+            <div class="measurement-value" id="valueDisplay">0</div>
+            
+            <div class="meter-arc-container">
+                <div class="meter-arc">
+                    <div class="scale-line" style="--i: -45deg;"></div>
+                    <div class="scale-line" style="--i: -35deg;"></div>
+                    <div class="scale-line" style="--i: -25deg;"></div>
+                    <div class="scale-line major" style="--i: -15deg;"></div>
+                    <div class="scale-line" style="--i: -5deg;"></div>
+                    <div class="scale-line" style="--i: 5deg;"></div>
+                    <div class="scale-line major" style="--i: 15deg;"></div>
+                    <div class="scale-line" style="--i: 25deg;"></div>
+                    <div class="scale-line" style="--i: 35deg;"></div>
+                    <div class="scale-line" style="--i: 45deg;"></div>
+                    
+                    <div class="meter-needle" id="meterNeedle"></div> 
+                </div>
+                
+                <div class="scale-labels">
+                    <span class="label-pos" style="--i: -45deg;">-30</span>
+                    <span class="label-pos" style="--i: -15deg;">-15</span>
+                    <span class="label-pos" style="--i: 0deg;">0</span>
+                    <span class="label-pos" style="--i: 15deg;">15</span>
+                    <span class="label-pos" style="--i: 45deg;">30</span>
+                </div>
+                <div class="arc-overlay"></div>
+            </div>
+            
+            <div class="action-buttons-top">
+                <button class="action-button large" id="leftPauseBtn">JEDA</button>
+                <button class="action-button large" id="rightPauseBtn">JEDA</button>
+            </div>
+
+            <div class="action-buttons-bottom">
+                <button class="action-button small" id="startStopBtn">MULAI PENGUKURAN</button>
+                <button class="action-button small" id="resetBtn">RESET</button>
+                <button class="action-button small">LIHAT CATATAN</button>
+            </div>
+        </main>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">
+            <span class="nav-icon">🏠</span> 
+            <span>detail latihan</span>
+        </a>
+    </nav>
+
+    <script src="bodyscan.js"></script>
+</body>
+</html>

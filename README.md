@@ -1,1 +1,1 @@
-# mw-di-post-main
+# mw-di-post
