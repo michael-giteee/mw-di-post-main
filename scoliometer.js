@@ -39,8 +39,16 @@ function updateGauge(angle) {
 function handleOrientation(event) {
     if (!isMeasuring) return;
 
-    // gamma = kemiringan kiri kanan (cocok untuk landscape)
-    const tilt = event.gamma;
+    let tilt;
+
+    // Cek orientasi layar
+    if (window.innerWidth > window.innerHeight) {
+        // LANDSCAPE
+        tilt = event.beta;  
+    } else {
+        // PORTRAIT
+        tilt = event.gamma;
+    }
 
     updateGauge(tilt);
 }
