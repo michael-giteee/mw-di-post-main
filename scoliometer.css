@@ -157,20 +157,34 @@ header {
     color: #4863f7; 
 }
 
+
+
+/* FIX LAYOUT SAAT LANDSCAPE */
 @media screen and (orientation: landscape) {
+
     body {
-        transform: rotate(90deg);
-        transform-origin: center center;
-        width: 100vh;
-        height: 100vw;
-        overflow-x: hidden;
-        position: absolute;
-        top: 0;
-        left: 0;
+        justify-content: center;
+        align-items: center;
     }
+
+    .container {
+        max-width: 600px;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .gauge-ring {
+        width: 200px;
+        height: 200px;
+    }
+
+    .gauge-line {
+        height: 100px;
+    }
+
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
 }
