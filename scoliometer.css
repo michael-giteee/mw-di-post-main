@@ -167,18 +167,7 @@ header {
 
 @media screen and (orientation: landscape) {
 
-    /* Gauge tetap besar */
-    .gauge-ring {
-        width: 250px;
-        height: 250px;
-        margin: 20px auto;
-    }
-
-    .measurement-value {
-        font-size: 36px;
-    }
-
-    /* Override tombol full width dari main.css */
+    /* Override tombol full width */
     .controls button {
         width: auto !important;
         padding: 6px 14px !important;
@@ -186,7 +175,7 @@ header {
         border-radius: 20px !important;
     }
 
-    /* Reset kiri atas */
+    /* Reset - kiri atas */
     #reset-button {
         position: fixed;
         top: 15px;
@@ -194,18 +183,27 @@ header {
         z-index: 9999;
     }
 
-    /* Start & Finish kanan atas */
-    #start-button,
-    #finish-button {
+    /* Mulai - kanan atas */
+    #start-button {
         position: fixed;
         top: 15px;
         right: 15px;
         z-index: 9999;
     }
 
+    /* Selesai - di bawah Mulai */
+    #finish-button {
+        position: fixed;
+        top: 55px; /* jarak dari atas */
+        right: 15px;
+        z-index: 9999;
+    }
+
+
     /* Supaya hasil tidak ketutup bottom nav */
     .interpretation-area {
         padding-bottom: 140px;
     }
 }
+
 
