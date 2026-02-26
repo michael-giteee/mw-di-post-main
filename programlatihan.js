@@ -1,6 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // =====================================
+    // 🔐 CEK AKSES (REGISTER & PENGUKURAN)
+    // =====================================
+    const isRegistered = localStorage.getItem("isRegistered");
+    const hasMeasured = localStorage.getItem("hasMeasured");
+
+    if (!isRegistered) {
+        alert("Silakan isi data terlebih dahulu!");
+        window.location.href = "index.html";
+        return;
+    }
+
+    if (!hasMeasured) {
+        alert("Silakan lakukan pengukuran terlebih dahulu!");
+        window.location.href = "bodyscan.html";
+        return;
+    }
+
+    // =====================================
     // 🔒 CEK KELOMPOK USIA
+    // =====================================
     const kelompok = localStorage.getItem("kelompokUsia");
 
     if (!kelompok) {
@@ -23,13 +43,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.textContent = "10 Latihan Ringan";
             }
         });
-
     }
 
-    // ================================
-    // KODE LAMA KAMU (TETAP DIPERTAHANKAN)
-    // ================================
-
+    // =====================================
+    // KODE LAMA KAMU (DIPERTAHANKAN)
+    // =====================================
     const allStartBtns = document.querySelectorAll('.start-btn');
     const activeDayNumber = 2;
     const listBackBtn = document.querySelector('.list-back-btn');
