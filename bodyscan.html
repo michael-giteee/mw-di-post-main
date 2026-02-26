@@ -64,11 +64,14 @@
 
     <!-- 🔥 Bottom Navigation -->
     <nav class="bottom-nav">
-        <button id="homeBtn" class="nav-btn locked">
-            🏠 Home 🔒
-        </button>
-    </nav>
-
+    <a href="#" id="homeBtn" class="nav-item locked">
+        <div class="icon-wrapper">
+            <span class="nav-icon">🏠</span>
+            <span id="lockIcon" class="lock-overlay">🔒</span>
+        </div>
+        <span class="nav-label">Home</span>
+    </a>
+</nav>
 </div>
 
 <script src="bodyscan.js"></script>
