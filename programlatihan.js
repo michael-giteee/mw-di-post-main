@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     // =====================================
-    // 🔐 CEK LOGIN USER (BUKAN KELOMPOK / BUKAN SCAN)
+    // 🔐 CEK LOGIN USER
     // =====================================
     const nama = localStorage.getItem("nama");
 
@@ -11,69 +11,67 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // =====================================
-    // 🔧 FIX: pastikan unlockedDay selalu ada
+    // 🔧 KEY PROGRESS PER USER (AMAN)
     // =====================================
-    if (!localStorage.getItem("unlockedDay")) {
-        localStorage.setItem("unlockedDay", "2");
+    const unlockedDayKey = `unlockedDay_${nama}`;
+
+    // default buka sampai hari 2
+    if (!localStorage.getItem(unlockedDayKey)) {
+        localStorage.setItem(unlockedDayKey, "2");
     }
 
-    let unlockedDay = parseInt(localStorage.getItem("unlockedDay"));
+    let unlockedDay = parseInt(localStorage.getItem(unlockedDayKey));
 
     // =====================================
-    // 🔒 SISTEM LOCK HARI BERURUTAN
+    // 🔒 SISTEM LOCK HARI
     // =====================================
-
     const allDays = document.querySelectorAll(".day-item");
-    const allStartBtns = document.querySelectorAll(".start-btn");
 
     allDays.forEach((dayItem) => {
 
         const dayNumber = parseInt(dayItem.getAttribute("data-day"));
         const startBtn = dayItem.querySelector(".start-btn");
 
-        if (!startBtn) return;
+        if (!dayNumber || !startBtn) return;
 
-        // reset dulu
+        // reset UI dulu
         startBtn.disabled = false;
         startBtn.textContent = "Mulai";
         dayItem.classList.remove("locked");
 
-        // lock kalau belum terbuka
+        // 🔒 KUNCI HARI DI ATAS unlockedDay
         if (dayNumber > unlockedDay) {
-
             startBtn.disabled = true;
             startBtn.textContent = "🔒 Terkunci";
             dayItem.classList.add("locked");
-
         }
 
+        // simpan data-day ke button (penting)
+        startBtn.setAttribute("data-day", dayNumber);
     });
 
     // =====================================
-    // ▶️ EVENT CLICK
+    // ▶️ EVENT CLICK TOMBOL MULAI
     // =====================================
+    const allStartBtns = document.querySelectorAll(".start-btn");
 
     allStartBtns.forEach(button => {
 
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
 
             e.preventDefault();
 
             const day = parseInt(this.getAttribute("data-day"));
-
-            // extra safety
             if (!day) return;
 
-            if (day > unlockedDay) {
-                return;
-            }
+            // extra safety
+            if (day > unlockedDay) return;
 
             // simpan hari aktif
             localStorage.setItem("currentDay", day.toString());
 
             // redirect ke halaman latihan
             window.location.href = "hari2.html";
-
         });
 
     });
