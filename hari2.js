@@ -185,37 +185,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
 
-            // =====================================
-            // 🎯 SISTEM MISI + TIMER
-            // =====================================
+            // ============================
+            // 🎯 MISSION TIMER SYSTEM
+            // ============================
 
+            const timerSelect = document.getElementById("timerSelect");
+            const timerDisplay = document.getElementById("timerDisplay");
             const startMissionBtn = document.getElementById("startMissionBtn");
             const finishMissionBtn = document.getElementById("finishMissionBtn");
-            const timerDisplay = document.getElementById("timerDisplay");
 
-            let missionTime = 60; // default 60 detik
             let timerInterval = null;
-            let timeLeft = missionTime;
+            let timeLeft = 60;
 
-
-            // update tampilan timer
             function updateTimerDisplay() {
 
-                let minutes = Math.floor(timeLeft / 60);
-                let seconds = timeLeft % 60;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
 
                 timerDisplay.textContent =
-                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    minutes + ":" + seconds.toString().padStart(2, "0");
 
             }
 
+            function unlockNextExercise() {
 
-            // tombol MULAI MISI
+                if (currentIndex < exercises.length - 1) {
+
+                    currentIndex++;
+                    updateActiveExercise();
+
+                    alert("Latihan berikutnya terbuka! 🔓");
+
+                } else {
+
+                    alert("Semua latihan selesai! 🎉");
+
+                    let unlockedDay = parseInt(localStorage.getItem("unlockedDay")) || 2;
+                    let currentDay = parseInt(localStorage.getItem("currentDay")) || 2;
+
+                    if (currentDay >= unlockedDay) {
+                        localStorage.setItem("unlockedDay", currentDay + 1);
+                    }
+
+                }
+
+            }
+
             if (startMissionBtn) {
 
                 startMissionBtn.addEventListener("click", function() {
 
-                    timeLeft = missionTime;
+                    timeLeft = parseInt(timerSelect.value);
 
                     updateTimerDisplay();
 
@@ -243,8 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             }
 
-
-            // tombol SELESAIKAN MISI manual
             if (finishMissionBtn) {
 
                 finishMissionBtn.addEventListener("click", function() {
@@ -258,7 +276,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
             }
-
 
             // unlock latihan berikutnya
             function unlockNextExercise() {
