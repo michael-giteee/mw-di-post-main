@@ -29,8 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const MAX_ANGLE = 30;
 
     function mapValueToRotation(value) {
-        const normalized = (value + MAX_ANGLE) / (2 * MAX_ANGLE);
-        return normalized * 180;
+        // -30 → -45°, 0 → 0°, +30 → +45°
+        const maxDeg = 45;
+        return (value / MAX_ANGLE) * maxDeg;
     }
 
     function updateDisplay(newValue) {
@@ -151,4 +152,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
 
