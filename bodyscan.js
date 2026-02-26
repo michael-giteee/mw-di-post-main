@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         lastValue = Math.round(newValue);
         valueDisplay.textContent = lastValue;
         const rotation = mapValueToRotation(lastValue);
-        meterNeedle.style.transform = `rotate(${rotation}deg)`;
+        meterNeedle.style.transform = `rotate(${rotation + 180}deg)`;
     }
 
     // ====================================
@@ -182,3 +182,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
