@@ -273,3 +273,25 @@ padding: 5px 0;
 position: relative; 
 z-index: 10;
 }
+
+.locked-exercise {
+
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(100%);
+    position: relative;
+
+}
+
+.locked-exercise::after {
+
+    content: "🔒 Terkunci";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+
+}
