@@ -114,18 +114,22 @@ document.addEventListener("DOMContentLoaded", function () {
         unlockHomeInstant();
     }
 
-    function unlockHome() {
+        function unlockHome() {
 
         homeBtn.classList.remove("locked");
 
-        // animasi gembok
+        // animasi buka gembok
         lockIcon.textContent = "🔓";
         lockIcon.classList.add("unlocking");
 
         setTimeout(() => {
-            lockIcon.remove(); // hilangkan icon setelah animasi
+            lockIcon.classList.add("fade-out");
+        }, 300);
+
+        setTimeout(() => {
+            lockIcon.remove();
             homeBtn.classList.add("unlocked");
-        }, 400);
+        }, 600);
     }
 
     function unlockHomeInstant() {
