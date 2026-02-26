@@ -233,49 +233,66 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (startMissionBtn) {
 
-                startMissionBtn.addEventListener("click", function() {
+            startMissionBtn.addEventListener("click", function() {
 
-                    timeLeft = parseInt(timerSelect.value);
+                // ✅ STOP interval lama dulu
+                if (timerInterval !== null) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+
+                isTimerRunning = true;
+
+                // ambil waktu dari dropdown
+                timeLeft = parseInt(timerSelect.value);
+
+                updateTimerDisplay();
+
+                // ✅ interval stabil 1 detik
+                timerInterval = setInterval(() => {
+
+                    if (!isTimerRunning) return;
+
+                    timeLeft--;
 
                     updateTimerDisplay();
 
-                    clearInterval(timerInterval);
+                    if (timeLeft <= 0) {
 
-                    timerInterval = setInterval(() => {
+                        // ✅ stop total
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        isTimerRunning = false;
 
-                        timeLeft--;
+                        alert("🎉 Misi selesai!");
 
-                        updateTimerDisplay();
+                        unlockNextExercise();
 
-                        if (timeLeft <= 0) {
+                    }
 
-                            clearInterval(timerInterval);
+                }, 1000);
 
-                            alert("🎉 Misi selesai!");
+            });
 
-                            unlockNextExercise();
-
-                        }
-
-                    }, 1000);
-
-                });
-
-            }
+        }
 
             if (finishMissionBtn) {
 
-                finishMissionBtn.addEventListener("click", function() {
+            finishMissionBtn.addEventListener("click", function() {
 
-                    clearInterval(timerInterval);
+                if (!isTimerRunning) return;
 
-                    alert("🎉 Misi selesai!");
+                clearInterval(timerInterval);
+                timerInterval = null;
+                isTimerRunning = false;
 
-                    unlockNextExercise();
+                alert("🎉 Misi selesai!");
 
-                });
+                unlockNextExercise();
 
-            }
+            });
+
+        }
 
             // unlock latihan berikutnya
             function unlockNextExercise() {
@@ -309,5 +326,3 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
 });
-
-
