@@ -16,9 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const hasBodyScan = localStorage.getItem("hasBodyScan");
-    const hasScoliometer = localStorage.getItem("hasScoliometer");
-
-    if (!hasBodyScan || !hasScoliometer) {
+    
+    if (!hasBodyScan) {
         window.location.href = "bodyscan.html";
         return;
     }
