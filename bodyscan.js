@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const meterNeedle = document.getElementById('meterNeedle');
     const startStopBtn = document.getElementById('startStopBtn');
     const pauseBtn = document.getElementById('pauseBtn');
+    const resetBtn = document.getElementById('resetBtn');
 
     const resultPanel = document.getElementById('resultPanel');
     const finalAngle = document.getElementById('finalAngle');
@@ -28,6 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const MAX_ANGLE = 30;
 
+    // ====================================
+    // 🔄 ROTASI JARUM (0 BENAR-BENAR TENGAH)
+    // ====================================
     function mapValueToRotation(value) {
         // -30 → -45°, 0 → 0°, +30 → +45°
         const maxDeg = 45;
@@ -41,6 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
         meterNeedle.style.transform = `rotate(${rotation}deg)`;
     }
 
+    // ====================================
+    // ▶️ MULAI PENGUKURAN
+    // ====================================
     function startMeasurement() {
         isMeasuring = true;
         startStopBtn.style.display = "none";
@@ -53,25 +60,31 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 200);
     }
 
+    // ====================================
+    // ⏹️ SELESAI PENGUKURAN
+    // ====================================
     function finishMeasurement() {
-    isMeasuring = false;
-    clearInterval(intervalId);
+        isMeasuring = false;
+        clearInterval(intervalId);
 
-    pauseBtn.style.display = "none";
-    startStopBtn.style.display = "inline-block";
+        pauseBtn.style.display = "none";
+        startStopBtn.style.display = "inline-block";
 
-    showResult(lastValue);
+        showResult(lastValue);
 
-    // ✅ simpan SEMUA status supaya semua halaman sinkron
-    localStorage.setItem("hasMeasured", "true");
-    localStorage.setItem("hasBodyScan", "true");
-    localStorage.setItem("hasScoliometer", "true");
+        // ✅ simpan status (TIDAK DIUBAH)
+        localStorage.setItem("hasMeasured", "true");
+        localStorage.setItem("hasBodyScan", "true");
+        localStorage.setItem("hasScoliometer", "true");
 
-    unlockHome();
+        unlockHome();
 
-    localStorage.setItem("lastScanResult", lastValue);
-}
+        localStorage.setItem("lastScanResult", lastValue);
+    }
 
+    // ====================================
+    // 📊 HASIL ANALISIS
+    // ====================================
     function showResult(value) {
         finalAngle.textContent = value + "°";
 
@@ -95,12 +108,18 @@ document.addEventListener("DOMContentLoaded", function () {
         resultPanel.classList.add("show");
     }
 
+    // ====================================
+    // ❌ TUTUP PANEL HASIL
+    // ====================================
     if (closeResult) {
         closeResult.addEventListener("click", () => {
             resultPanel.classList.remove("show");
         });
     }
 
+    // ====================================
+    // 🎛️ EVENT BUTTON
+    // ====================================
     if (startStopBtn) {
         startStopBtn.addEventListener('click', startMeasurement);
     }
@@ -109,21 +128,32 @@ document.addEventListener("DOMContentLoaded", function () {
         pauseBtn.addEventListener('click', finishMeasurement);
     }
 
+    // 🔄 RESET (VISUAL SAJA, AMAN)
+    if (resetBtn) {
+        resetBtn.addEventListener("click", () => {
+            if (isMeasuring) return; // tidak ganggu saat ukur
+            updateDisplay(0);
+        });
+    }
+
+    // ====================================
+    // INIT AWAL (0 TENGAH)
+    // ====================================
     updateDisplay(0);
 
+    // ====================================
+    // 🔓 HOME + GEMBOK (TIDAK DIUBAH)
+    // ====================================
     const homeBtn = document.getElementById("homeBtn");
     const lockIcon = document.getElementById("lockIcon");
 
-    // cek saat halaman dibuka
     if (localStorage.getItem("hasMeasured") === "true") {
         unlockHomeInstant();
     }
 
-        function unlockHome() {
-
+    function unlockHome() {
         homeBtn.classList.remove("locked");
 
-        // animasi buka gembok
         lockIcon.textContent = "🔓";
         lockIcon.classList.add("unlocking");
 
@@ -152,5 +182,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
-
-
