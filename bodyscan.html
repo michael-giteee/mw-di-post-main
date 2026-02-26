@@ -14,7 +14,20 @@
     <main class="meter-display">
 
         <div class="meter-title">Scoliosis Meter</div>
+
+        <!-- OPSIONAL: keterangan netral -->
+        <div class="meter-subtitle">
+            Posisi netral berada di tengah (0°)
+        </div>
+
         <div class="measurement-value" id="valueDisplay">0</div>
+
+        <!-- KETERANGAN ARAH -->
+        <div class="direction-labels">
+            <span>KIRI</span>
+            <span>TENGAH (0)</span>
+            <span>KANAN</span>
+        </div>
 
         <div class="meter-arc-container">
             <div class="meter-arc">
@@ -50,6 +63,11 @@
             <button class="action-button large" id="pauseBtn" style="display:none;">
                 SELESAI
             </button>
+
+            <!-- TOMBOL RESET (VISUAL SAJA, AMAN) -->
+            <button class="action-button small" id="resetBtn">
+                RESET
+            </button>
         </div>
 
         <!-- Result Panel -->
@@ -63,40 +81,28 @@
     </main>
 
     <!-- 🔥 Bottom Navigation -->
-<nav class="bottom-nav">
+    <nav class="bottom-nav">
 
-    <a href="#" id="homeBtn" class="nav-item locked">
-
-        <div class="nav-icon-wrapper">
-
-            <span class="nav-icon">🏠</span>
-
-            <!-- ICON GEMBOK -->
-            <span class="lock-icon" id="lockIcon">🔒</span>
-
-        </div>
-
-        <span>Home</span>
-
-    </a>
+        <a href="#" id="homeBtn" class="nav-item locked">
+            <div class="nav-icon-wrapper">
+                <span class="nav-icon">🏠</span>
+                <span class="lock-icon" id="lockIcon">🔒</span>
+            </div>
+            <span>Home</span>
+        </a>
 
         <!-- BODY SCAN -->
-    <a href="bodyscan-flow.html" id="bodyScanBtn" class="nav-item">
-        <div class="nav-icon-wrapper">
-            <span class="nav-icon">🧍</span>
-        </div>
-        <span>Body Scan</span>
-    </a>
-    
-</nav>
+        <a href="bodyscan-flow.html" id="bodyScanBtn" class="nav-item">
+            <div class="nav-icon-wrapper">
+                <span class="nav-icon">🧍</span>
+            </div>
+            <span>Body Scan</span>
+        </a>
+
+    </nav>
 </div>
 
 <script src="bodyscan.js"></script>
 
 </body>
 </html>
-
-
-
-
-
