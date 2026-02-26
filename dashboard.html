@@ -77,22 +77,32 @@
 
     <script src="lang.js"></script>
 
-    <script>
-    // ===============================
-    // 🔐 CEK AKSES DASHBOARD
-    // ===============================
-    const isRegistered = localStorage.getItem("isRegistered");
-    const hasMeasured = localStorage.getItem("hasMeasured");
+   <script>
 
-    if (!isRegistered) {
-        alert("Silakan isi data terlebih dahulu!");
-        window.location.href = "index.html";
-    }
+    // ===============================
+    // 🔐 CEK AKSES DASHBOARD (FIX)
+    // ===============================
+    document.addEventListener("DOMContentLoaded", function(){
 
-    if (!hasMeasured) {
-        alert("Silakan lakukan pengukuran terlebih dahulu!");
-        window.location.href = "bodyscan.html";
-    }
+        const isRegistered = localStorage.getItem("isRegistered");
+        const hasMeasured = localStorage.getItem("hasMeasured");
+
+        // kalau belum register → balik ke register
+        if (isRegistered !== "true") {
+            window.location.href = "index.html";
+            return;
+        }
+
+        // kalau belum scan → balik ke bodyscan
+        if (hasMeasured !== "true") {
+            window.location.href = "bodyscan.html";
+            return;
+        }
+
+        // kalau sudah semua → dashboard boleh diakses ✅
+
+    }); 
+
 </script>
 </body>
 </html>
