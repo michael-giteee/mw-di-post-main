@@ -1,3 +1,6 @@
+// =====================================
+// 🌐 TRANSLATION SYSTEM
+// =====================================
 const translations = {
     "id": {
         "tagline": "Perbaiki posturmu, perbaiki hidupmu",
@@ -30,8 +33,27 @@ function changeLanguage(lang) {
     });
 }
 
+
+// =====================================
+// 🔐 AUTO LOGIN SYSTEM
+// =====================================
 document.addEventListener("DOMContentLoaded", function () {
 
+    const isRegistered = localStorage.getItem("isRegistered");
+    const hasMeasured = localStorage.getItem("hasMeasured");
+
+    // kalau user sudah pernah register & scan
+    if (isRegistered === "true" && hasMeasured === "true") {
+
+        // langsung dashboard
+        window.location.href = "dashboard.html";
+        return;
+    }
+
+
+    // =====================================
+    // FORM REGISTER
+    // =====================================
     const form = document.getElementById("registerForm");
 
     if (!form) return;
@@ -45,7 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const usiaInput = document.getElementById("usia").value;
         const usia = parseInt(usiaInput);
 
+        // =====================================
         // VALIDASI
+        // =====================================
         if (!nama || !email || !usiaInput) {
             alert("Semua data harus diisi!");
             return;
@@ -56,7 +80,31 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // =====================================
+        // CEK USER LAMA ATAU BARU
+        // =====================================
+        const savedNama = localStorage.getItem("nama");
+        const savedEmail = localStorage.getItem("email");
+        const savedUsia = localStorage.getItem("usia");
+
+        const hasMeasured = localStorage.getItem("hasMeasured");
+
+        // kalau user sama & sudah scan → langsung dashboard
+        if (
+            savedNama === nama &&
+            savedEmail === email &&
+            savedUsia === usiaInput &&
+            hasMeasured === "true"
+        ) {
+
+            window.location.href = "dashboard.html";
+            return;
+        }
+
+
+        // =====================================
         // KELOMPOK USIA
+        // =====================================
         let kelompokUsia = "";
 
         if (usia >= 17 && usia <= 55) {
@@ -65,17 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
             kelompokUsia = "kelompok2";
         }
 
-        // =====================================
-        // RESET TOTAL STATUS USER SEBELUMNYA
-        // =====================================
-        localStorage.removeItem("hasMeasured");
-        localStorage.removeItem("lastScanResult");
-
-        // paksa lock lagi
-        localStorage.setItem("hasMeasured", "false");
 
         // =====================================
-        // SET USER BARU
+        // SET USER
         // =====================================
         localStorage.setItem("isRegistered", "true");
 
@@ -83,6 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("email", email);
         localStorage.setItem("usia", usia);
         localStorage.setItem("kelompokUsia", kelompokUsia);
+
+        // set status scan belum
+        localStorage.setItem("hasMeasured", "false");
 
         // pindah ke bodyscan
         window.location.href = "bodyscan.html";
