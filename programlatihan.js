@@ -1,24 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // =====================================
-    // 🔐 CEK REGISTER
+    // 🔐 CEK REGISTER SAJA
     // =====================================
-    // fallback default
-    if (!localStorage.getItem("unlockedDay")) {
-        localStorage.setItem("unlockedDay", "2");
-    }
-
     const isRegistered = localStorage.getItem("isRegistered");
 
     if (!isRegistered) {
         window.location.href = "index.html";
-        return;
-    }
-
-    const hasBodyScan = localStorage.getItem("hasBodyScan");
-    
-    if (!hasBodyScan) {
-        window.location.href = "bodyscan.html";
         return;
     }
 
@@ -38,10 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!startBtn) return;
 
+        // reset dulu
         startBtn.disabled = false;
         startBtn.textContent = "Mulai";
         dayItem.classList.remove("locked");
 
+        // lock kalau belum terbuka
         if (dayNumber > unlockedDay) {
 
             startBtn.disabled = true;
@@ -76,4 +66,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
-}); 
+});
