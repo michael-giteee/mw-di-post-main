@@ -59,7 +59,15 @@ document.addEventListener("DOMContentLoaded", function () {
             kelompokUsia = "kelompok2";
         }
 
-        // ✅ INI YANG TADI KURANG
+        // =====================================
+        // 🔐 RESET STATUS PENGUKURAN USER LAMA
+        // =====================================
+        localStorage.removeItem("hasMeasured"); // supaya home terkunci lagi
+        localStorage.removeItem("lastScanResult");
+
+        // =====================================
+        // SET STATUS USER BARU
+        // =====================================
         localStorage.setItem("isRegistered", "true");
 
         // simpan data user
