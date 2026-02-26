@@ -9,100 +9,103 @@
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1 >Dashboard</h1>
-            <p >Selamat datang kembali! Mari lanjutkan perjalanan postur Anda.</p>
-        </header>
-        
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Latihan Selesai</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value progress-value">0%</div>
-                <div class="stat-label" data-i18n>Progres Minggu Ini</div>
-            </div>
+<div class="container">
+    <header>
+        <h1>Dashboard</h1>
+        <p>Selamat datang kembali! Mari lanjutkan perjalanan postur Anda.</p>
+    </header>
+    
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-value" id="workoutCount">0</div>
+            <div class="stat-label">Latihan Selesai</div>
         </div>
-
-        <main class="menu-grid">
-            
-
-            
-            <a href="#" class="menu-card">
-                <div class="menu-icon stats-icon">📊</div>
-                <h2 data-i18n>Body Stats</h2>
-                <p data-i18n>Analisis Postur</p>
-            </a>
-
-
-
-            <a href="scoliometer.html" class="menu-card">
-                <div class="menu-icon ruler-icon">📐</div>
-                <h2 data-i18n>Scoliometer</h2>
-                <p data-i18n>Pengukuran ATR</p>
-            </a>
-
-        </main>
-        
+        <div class="stat-card">
+            <div class="stat-value progress-value" id="weeklyProgress">0%</div>
+            <div class="stat-label">Progres Minggu Ini</div>
+        </div>
     </div>
 
-    <nav class="bottom-nav">
-        <a href="dashboard.html" class="nav-item active">
+    <main class="menu-grid">
+        <a href="#" class="menu-card">
+            <div class="menu-icon stats-icon">📊</div>
+            <h2>Body Stats</h2>
+            <p>Analisis Postur</p>
+        </a>
+
+        <a href="scoliometer.html" class="menu-card">
+            <div class="menu-icon ruler-icon">📐</div>
+            <h2>Scoliometer</h2>
+            <p>Pengukuran ATR</p>
+        </a>
+    </main>
+</div>
+
+<nav class="bottom-nav">
+    <a href="dashboard.html" class="nav-item active">
         <i class="fas fa-home"></i>
-        <span data-i18n>Home</span>
+        <span>Home</span>
     </a>
-    
+
     <a href="programlatihan.html" class="nav-item">
         <i class="fas fa-running"></i>
-        <span data-i18n>Latihan</span>
+        <span>Latihan</span>
     </a>
-    
+
     <a href="ai.html" class="nav-item">
         <i class="fas fa-robot"></i>
-        <span data-i18n>AI</span>
+        <span>AI</span>
     </a>
 
     <a href="scoliometer.html" class="nav-item">
         <i class="fas fa-ruler"></i>
-        <span data-i18n>Scoliometer</span>
+        <span>Scoliometer</span>
     </a>
-    
+
     <a href="settings.html" class="nav-item">
         <i class="fas fa-cog"></i>
-        <span data-i18n>Settings</span>
+        <span>Settings</span>
     </a>
-    </nav>
+</nav>
 
-    <script src="lang.js"></script>
+<script>
+/* ===============================
+   🔐 CEK AKSES DASHBOARD
+=============================== */
+document.addEventListener("DOMContentLoaded", function () {
 
-   <script>
+    const isRegistered = localStorage.getItem("isRegistered");
+    const hasMeasured = localStorage.getItem("hasMeasured");
+
+    if (isRegistered !== "true") {
+        window.location.href = "index.html";
+        return;
+    }
+
+    if (hasMeasured !== "true") {
+        window.location.href = "bodyscan.html";
+        return;
+    }
 
     // ===============================
-    // 🔐 CEK AKSES DASHBOARD (FIX)
+    // 📊 LOAD DATA PROGRES
     // ===============================
-    document.addEventListener("DOMContentLoaded", function(){
+    let workoutCompleted = parseInt(localStorage.getItem("workoutCompleted")) || 0;
+    let weeklyCompleted = parseInt(localStorage.getItem("weeklyCompleted")) || 0;
+    let weeklyTarget = parseInt(localStorage.getItem("weeklyTarget")) || 5;
 
-        const isRegistered = localStorage.getItem("isRegistered");
-        const hasMeasured = localStorage.getItem("hasMeasured");
+    // simpan default kalau belum ada
+    localStorage.setItem("weeklyTarget", weeklyTarget);
 
-        // kalau belum register → balik ke register
-        if (isRegistered !== "true") {
-            window.location.href = "index.html";
-            return;
-        }
+    // hitung progres %
+    let progressPercent = Math.round((weeklyCompleted / weeklyTarget) * 100);
+    if (progressPercent > 100) progressPercent = 100;
 
-        // kalau belum scan → balik ke bodyscan
-        if (hasMeasured !== "true") {
-            window.location.href = "bodyscan.html";
-            return;
-        }
-
-        // kalau sudah semua → dashboard boleh diakses ✅
-
-    }); 
-
+    // update UI
+    document.getElementById("workoutCount").textContent = workoutCompleted;
+    document.getElementById("weeklyProgress").textContent = progressPercent + "%";
+});
 </script>
+
 </body>
 </html>
