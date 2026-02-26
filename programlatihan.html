@@ -10,143 +10,162 @@
 <body>
 <div class="container">
 
-    <section id="day-list-view">
-        <header class="header list-header">
-            <a href="dashboard.html" class="back-btn list-back-btn">&#x2190;</a> 
-            <div class="header-content">
-                <h1></h1>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" id="weekProgressBar" style="width: 0%;"></div> 
+<section id="day-list-view">
+    <header class="header list-header">
+        <a href="dashboard.html" class="back-btn list-back-btn">&#x2190;</a> 
+        <div class="header-content">
+            <h1></h1>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="weekProgressBar"></div> 
+            </div>
+            <p class="days-remaining">Program Minggu 1</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="week-header">
+            <span class="flag-icon">🚩</span>
+            <h2>MINGGU 1</h2>
+            <span class="progress-count" id="weekCount">1/7</span>
+        </div>
+        
+        <ul class="day-list">
+
+            <!-- HARI 1 (SELESAI DEFAULT) -->
+            <li class="day-item completed" data-day="1">
+                <div class="day-details">
+                    <span class="day-number">Hari 1</span>
+                    <span class="day-info">Selesai</span>
                 </div>
-                <p class="days-remaining" id="daysRemaining">29 hari tersisa</p>
-            </div>
-        </header>
+                <span class="check-icon">&#10003;</span>
+            </li>
 
-        <main class="main-content">
-            <div class="week-header">
-                <span class="flag-icon">🚩</span>
-                <h2>MINGGU 1</h2>
-                <span class="progress-count" id="weekCount">0/7</span>
-            </div>
-            
-            <ul class="day-list">
-                <li class="day-item completed" data-day="1">
-                    <div class="day-details">
-                        <span class="day-number">Hari 1</span>
-                        <span class="day-info">Selesai</span>
-                    </div>
-                    <span class="check-icon">&#10003;</span>
-                </li>
+            <!-- HARI 2 (AKTIF) -->
+            <li class="day-item active" data-day="2">
+                <div class="day-details">
+                    <span class="day-number">Hari 2</span>
+                    <span class="day-info">15 Latihan</span>
+                </div>
+                <button class="start-btn" data-day="2">Mulai</button>
+            </li>
 
-                <li class="day-item active" data-day="2">
-                    <div class="day-details">
-                        <span class="day-number">Hari 2</span>
-                        <span class="day-info">15 Latihan</span>
-                    </div>
-                    <button class="start-btn" data-day="2">Mulai</button>
-                </li>
+            <!-- HARI 3-7 (TERKUNCI) -->
+            <li class="day-item locked" data-day="3">
+                <div class="day-details">
+                    <span class="day-number">Hari 3</span>
+                    <span class="day-info">Terkunci</span>
+                </div>
+            </li>
 
-                <li class="day-item" data-day="3">
-                    <div class="day-details">
-                        <span class="day-number">Hari 3</span>
-                        <span class="day-info">15 Latihan</span>
-                    </div>
-                    <button class="start-btn normal-day-btn" data-day="3">Mulai</button>
-                </li>
+            <li class="day-item locked" data-day="4">
+                <div class="day-details">
+                    <span class="day-number">Hari 4</span>
+                    <span class="day-info">Terkunci</span>
+                </div>
+            </li>
 
-                <li class="day-item" data-day="4">
-                    <div class="day-details">
-                        <span class="day-number">Hari 4</span>
-                        <span class="day-info">14 Latihan</span> 
-                    </div>
-                    <button class="start-btn normal-day-btn" data-day="4">Mulai</button>
-                </li>
+            <li class="day-item locked" data-day="5">
+                <div class="day-details">
+                    <span class="day-number">Hari 5</span>
+                    <span class="day-info">Istirahat</span>
+                </div>
+            </li>
 
-                <li class="day-item rest-day" data-day="5">
-                    <div class="day-details">
-                        <span class="day-number">Hari 5</span>
-                        <span class="day-info">Istirahat</span>
-                    </div>
-                    <button class="start-btn rest-day-btn" data-day="5">Istirahat</button>
-                </li>
-                
-                <li class="day-item" data-day="6">
-                    <div class="day-details">
-                        <span class="day-number">Hari 6</span>
-                        <span class="day-info">15 Latihan</span>
-                    </div>
-                    <button class="start-btn normal-day-btn" data-day="6">Mulai</button>
-                </li>
+            <li class="day-item locked" data-day="6">
+                <div class="day-details">
+                    <span class="day-number">Hari 6</span>
+                    <span class="day-info">Terkunci</span>
+                </div>
+            </li>
 
-                <li class="day-item" data-day="7">
-                    <div class="day-details">
-                        <span class="day-number">Hari 7</span>
-                        <span class="day-info">15 Latihan</span>
-                    </div>
-                    <button class="start-btn normal-day-btn" data-day="7">Mulai</button>
-                </li>
-            </ul>
-        </main>
-    </section> 
+            <li class="day-item locked" data-day="7">
+                <div class="day-details">
+                    <span class="day-number">Hari 7</span>
+                    <span class="day-info">Terkunci</span>
+                </div>
+            </li>
+
+        </ul>
+    </main>
+</section>
 </div>
 
 <script>
 /* =====================================
-   📌 PROGRES LATIHAN (LOCALSTORAGE)
+   🔐 PROGRAM LATIHAN – STEP SYSTEM
 ===================================== */
 document.addEventListener("DOMContentLoaded", function () {
 
     const TOTAL_DAYS = 7;
 
-    let completedDays = JSON.parse(localStorage.getItem("completedDays")) || [];
+    let completedDays = JSON.parse(localStorage.getItem("completedDays")) || [1];
+    let currentDay = parseInt(localStorage.getItem("currentDay")) || 2;
+
     let workoutCompleted = parseInt(localStorage.getItem("workoutCompleted")) || 0;
     let weeklyCompleted = parseInt(localStorage.getItem("weeklyCompleted")) || 0;
 
-    // update UI awal
-    updateWeekProgress();
+    renderDays();
+    updateProgress();
 
     document.querySelectorAll(".start-btn").forEach(btn => {
         btn.addEventListener("click", function () {
+            const day = parseInt(this.dataset.day);
 
-            const day = this.dataset.day;
+            if (day !== currentDay) return;
 
-            // hari istirahat tidak dihitung latihan
-            if (this.classList.contains("rest-day-btn")) {
-                markDayCompleted(day);
-                return;
-            }
+            // simpan progres
+            completedDays.push(day);
+            localStorage.setItem("completedDays", JSON.stringify(completedDays));
 
-            // kalau belum pernah diselesaikan
-            if (!completedDays.includes(day)) {
-                completedDays.push(day);
-                localStorage.setItem("completedDays", JSON.stringify(completedDays));
+            workoutCompleted++;
+            weeklyCompleted++;
 
-                // update counters
-                workoutCompleted++;
-                weeklyCompleted++;
+            localStorage.setItem("workoutCompleted", workoutCompleted);
+            localStorage.setItem("weeklyCompleted", weeklyCompleted);
 
-                localStorage.setItem("workoutCompleted", workoutCompleted);
-                localStorage.setItem("weeklyCompleted", weeklyCompleted);
-            }
+            currentDay++;
+            localStorage.setItem("currentDay", currentDay);
 
-            markDayCompleted(day);
+            renderDays();
+            updateProgress();
         });
     });
 
-    function markDayCompleted(day) {
-        const item = document.querySelector(`.day-item[data-day="${day}"]`);
-        if (!item) return;
+    function renderDays() {
+        document.querySelectorAll(".day-item").forEach(item => {
+            const day = parseInt(item.dataset.day);
+            const info = item.querySelector(".day-info");
 
-        item.classList.add("completed");
-        item.querySelector(".day-info").textContent = "Selesai";
+            item.classList.remove("active", "locked", "completed");
 
-        const btn = item.querySelector(".start-btn");
-        if (btn) btn.remove();
-
-        updateWeekProgress();
+            if (completedDays.includes(day)) {
+                item.classList.add("completed");
+                if (info) info.textContent = "Selesai";
+                const btn = item.querySelector(".start-btn");
+                if (btn) btn.remove();
+            }
+            else if (day === currentDay) {
+                item.classList.add("active");
+                if (info) info.textContent = "15 Latihan";
+                if (!item.querySelector(".start-btn")) {
+                    const btn = document.createElement("button");
+                    btn.className = "start-btn";
+                    btn.dataset.day = day;
+                    btn.textContent = "Mulai";
+                    item.appendChild(btn);
+                    btn.addEventListener("click", () => btn.click());
+                }
+            }
+            else {
+                item.classList.add("locked");
+                if (info) info.textContent = "Terkunci";
+                const btn = item.querySelector(".start-btn");
+                if (btn) btn.remove();
+            }
+        });
     }
 
-    function updateWeekProgress() {
+    function updateProgress() {
         const completedCount = completedDays.length;
         const percent = Math.round((completedCount / TOTAL_DAYS) * 100);
 
