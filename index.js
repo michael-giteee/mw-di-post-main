@@ -20,7 +20,6 @@ languageSelect.addEventListener('change', (e) => {
 });
 
 function changeLanguage(lang) {
-    // Cari semua elemen yang punya atribut data-i18n
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[lang][key]) {
@@ -29,7 +28,6 @@ function changeLanguage(lang) {
     });
 }
 
-// Tombol navigasi Anda yang sudah ada
 document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.getElementById("registerForm");
@@ -38,11 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         event.preventDefault();
 
+        const nama = document.getElementById("nama_lengkap").value.trim();
+        const email = document.getElementById("email").value.trim();
         const usiaInput = document.getElementById("usia").value;
         const usia = parseInt(usiaInput);
 
-        if (!usiaInput) {
-            alert("Silakan masukkan usia terlebih dahulu");
+        if (!nama || !email || !usiaInput) {
+            alert("Semua data harus diisi!");
             return;
         }
 
@@ -59,9 +59,16 @@ document.addEventListener("DOMContentLoaded", function () {
             kelompokUsia = "kelompok2";
         }
 
-        localStorage.setItem("kelompokUsia", kelompokUsia);
-        localStorage.setItem("usia", usia);
+        // ✅ INI YANG TADI KURANG
+        localStorage.setItem("isRegistered", "true");
 
+        // simpan data user
+        localStorage.setItem("nama", nama);
+        localStorage.setItem("email", email);
+        localStorage.setItem("usia", usia);
+        localStorage.setItem("kelompokUsia", kelompokUsia);
+
+        // pindah halaman
         window.location.href = "bodyscan.html";
     });
 
