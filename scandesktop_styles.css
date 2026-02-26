@@ -184,11 +184,28 @@ body {
     text-decoration: none;
     font-size: 12px;
     color: #888;
+    position: relative;
 }
 
 .nav-icon {
     font-size: 20px;
     margin-bottom: 3px;
+}
+
+/* ICON WRAPPER */
+.icon-wrapper {
+    position: relative;
+    font-size: 22px;
+}
+
+/* LOCK OVERLAY (NEMPEL DI TENGAH ICON) */
+.lock-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    transition: all 0.3s ease;
 }
 
 /* LOCKED STYLE */
@@ -204,14 +221,19 @@ body {
 }
 
 /* UNLOCK ANIMATION */
-@keyframes unlockPop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.5); }
-    100% { transform: scale(1); }
+@keyframes unlockAnim {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.6); }
+    100% { transform: translate(-50%, -50%) scale(1); }
 }
 
 .unlocking {
-    animation: unlockPop 0.4s ease;
+    animation: unlockAnim 0.4s ease forwards;
+}
+
+/* Fade out effect */
+.fade-out {
+    opacity: 0;
 }
 
 /* glow effect */
