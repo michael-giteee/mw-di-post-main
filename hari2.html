@@ -170,21 +170,30 @@
             </section>
         </main>
         
-        <!-- ================= MISSION CONTROL (TAMBAHAN) ================= -->
-        <div class="mission-control">
+        
+    <!-- ================= MISSION CONTROL (TAMBAHAN) ================= -->
+    <div class="mission-control">
 
-            <div id="timerDisplay">Siap Mulai</div>
+        <select id="timerSelect" class="timer-select">
+            <option value="30">30 detik</option>
+            <option value="60" selected>1 menit</option>
+            <option value="300">5 menit</option>
+            <option value="600">10 menit</option>
+            <option value="900">15 menit</option>
+        </select>
 
-            <button id="startMissionBtn" class="mission-btn start-btn">
-                ▶ Mulai Misi
-            </button>
+        <div id="timerDisplay">Siap Mulai</div>
 
-            <button id="finishMissionBtn" class="mission-btn finish-btn">
-                ✓ Selesaikan Misi
-            </button>
+        <button id="startMissionBtn" class="mission-btn start-btn">
+            ▶ Mulai Misi
+        </button>
 
-        </div>
-        <!-- =============================================================== -->
+        <button id="finishMissionBtn" class="mission-btn finish-btn">
+            ✓ Selesaikan Misi
+        </button>
+
+    </div>
+    <!-- =============================================================== -->
 
         <footer class="action-footer">
             <button class="btn restart-btn">MULAI ULANG</button>
