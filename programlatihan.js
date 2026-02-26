@@ -1,14 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // =====================================
-    // 🔐 CEK REGISTER SAJA
+    // 🔐 CEK LOGIN USER (BUKAN KELOMPOK / BUKAN SCAN)
     // =====================================
-    const isRegistered = localStorage.getItem("isRegistered");
+    const nama = localStorage.getItem("nama");
 
-    if (!isRegistered) {
+    if (!nama) {
         window.location.href = "index.html";
         return;
     }
+
+    // =====================================
+    // 🔧 FIX: pastikan unlockedDay selalu ada
+    // =====================================
+    if (!localStorage.getItem("unlockedDay")) {
+        localStorage.setItem("unlockedDay", "2");
+    }
+
+    let unlockedDay = parseInt(localStorage.getItem("unlockedDay"));
 
     // =====================================
     // 🔒 SISTEM LOCK HARI BERURUTAN
@@ -16,8 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const allDays = document.querySelectorAll(".day-item");
     const allStartBtns = document.querySelectorAll(".start-btn");
-
-    let unlockedDay = parseInt(localStorage.getItem("unlockedDay")) || 2;
 
     allDays.forEach((dayItem) => {
 
@@ -54,12 +61,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const day = parseInt(this.getAttribute("data-day"));
 
+            // extra safety
+            if (!day) return;
+
             if (day > unlockedDay) {
                 return;
             }
 
-            localStorage.setItem("currentDay", day);
+            // simpan hari aktif
+            localStorage.setItem("currentDay", day.toString());
 
+            // redirect ke halaman latihan
             window.location.href = "hari2.html";
 
         });
