@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // ✅ simpan status pengukuran
         localStorage.setItem("hasMeasured", "true");
+        unlockHome();
         localStorage.setItem("lastScanResult", lastValue);
     }
 
@@ -105,5 +106,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateDisplay(0);
 
-});
+        const homeBtn = document.getElementById("homeBtn");
+    const homeLabel = document.getElementById("homeLabel");
 
+    // cek apakah sudah pernah scan
+    if (localStorage.getItem("hasMeasured") === "true") {
+        unlockHome();
+    }
+
+    function unlockHome() {
+        homeBtn.classList.remove("locked");
+        homeLabel.textContent = "Home";
+    }
+
+    // ketika selesai scan
+    function unlockAfterScan() {
+        localStorage.setItem("hasMeasured", "true");
+        unlockHome();
+    }
+
+    // event klik home
+    homeBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+
+        if (localStorage.getItem("hasMeasured") === "true") {
+            window.location.href = "dashboard.html";
+        }
+    });
+
+});
