@@ -191,6 +191,18 @@ body {
     margin-bottom: 3px;
 }
 
+/* LOCKED STATE */
+.nav-item.locked {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ACTIVE STATE */
+.nav-item.active {
+    color: #007bff;
+    font-weight: bold;
+}
+
 
 
 /* =========================
