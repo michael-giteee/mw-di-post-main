@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scoliosis Meter - Web App</title>
+    <title>Scoliosis Meter - BodyScan</title>
     <link rel="stylesheet" href="scandesktop_styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -13,13 +13,12 @@
     
     <main class="meter-display">
 
-        <div class="meter-title">SCOLIOSIS METER</div>
+        <div class="meter-title">BODY SCAN</div>
         <div class="measurement-value" id="valueDisplay">0</div>
 
         <div class="meter-arc-container">
             <div class="meter-arc">
 
-                <!-- Scale Lines -->
                 <div class="scale-line" style="--i: -45deg;"></div>
                 <div class="scale-line" style="--i: -35deg;"></div>
                 <div class="scale-line" style="--i: -25deg;"></div>
@@ -31,12 +30,9 @@
                 <div class="scale-line" style="--i: 35deg;"></div>
                 <div class="scale-line" style="--i: 45deg;"></div>
 
-                <!-- Needle -->
                 <div class="meter-needle" id="meterNeedle"></div>
-
             </div>
 
-            <!-- Labels -->
             <div class="scale-labels">
                 <span class="label-pos" style="--i: -45deg;">-30</span>
                 <span class="label-pos" style="--i: -15deg;">-15</span>
@@ -44,7 +40,6 @@
                 <span class="label-pos" style="--i: 15deg;">15</span>
                 <span class="label-pos" style="--i: 45deg;">30</span>
             </div>
-
         </div>
 
         <!-- Tombol utama -->
@@ -54,29 +49,20 @@
             </button>
 
             <button class="action-button large" id="pauseBtn" style="display:none;">
-                JEDA
+                SELESAI
             </button>
         </div>
 
-        <!-- Tombol bawah -->
-        <div class="action-buttons-bottom">
-            <button class="action-button small" id="resetBtn">
-                RESET
-            </button>
-            <button class="action-button small">
-                LIHAT CATATAN
-            </button>
+        <!-- Result Panel -->
+        <div class="result-panel" id="resultPanel">
+            <h2>HASIL ANALISIS</h2>
+            <div class="result-angle" id="finalAngle">0°</div>
+            <div class="result-status" id="resultStatus"></div>
+            <button class="result-close" id="closeResult">TUTUP</button>
         </div>
 
     </main>
 </div>
-
-<nav class="bottom-nav">
-    <a href="dashboard.html" class="nav-item">
-        <span class="nav-icon">🏠</span>
-        <span>detail latihan</span>
-    </a>
-</nav>
 
 <script src="bodyscan.js"></script>
 
