@@ -52,18 +52,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateActiveExercise() {
 
-        exercises.forEach((item, index) => {
+    exercises.forEach((item, index) => {
 
-            item.classList.remove("active-exercise");
+        item.classList.remove("active-exercise");
+        item.classList.remove("locked-exercise");
 
-            if (index === currentIndex) {
+        if (index === currentIndex) {
 
-                item.classList.add("active-exercise");
+            // latihan aktif
+            item.classList.add("active-exercise");
 
-                item.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
+            item.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        } 
+            else if (index > currentIndex) {
+
+                // latihan masa depan dikunci
+                item.classList.add("locked-exercise");
 
             }
 
