@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // ============================
-    // 🔐 CEK LOGIN USER (INI YANG PENTING)
+    // 🔐 CEK LOGIN
     // ============================
 
     const nama = localStorage.getItem("nama");
@@ -12,146 +12,283 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================
-    // 🔒 CEK KELOMPOK USIA
+    // AMBIL SEMUA LATIHAN
     // ============================
-
-    const kelompok = localStorage.getItem("kelompokUsia");
 
     const allExercises = document.querySelectorAll(".exercise-item");
     let exercises = Array.from(allExercises);
-
-    // ============================
-    // 🧠 MODE KELOMPOK 2 (Senior)
-    // ============================
-
-    if (kelompok === "kelompok2") {
-
-        const title = document.querySelector("h1");
-
-        if (title) {
-            title.textContent = "Hari 2 - Program Senior";
-        }
-
-        document.body.classList.add("senior-mode");
-
-        exercises.forEach((item, index) => {
-
-            if (index >= 5) {
-                item.style.display = "none";
-            }
-
-        });
-
-        exercises = exercises.slice(0, 5);
-    }
-
-
-    // ============================
-    // ▶️ SISTEM LANJUTKAN LATIHAN
-    // ============================
 
     const continueBtn = document.querySelector(".continue-btn");
     const restartBtn = document.querySelector(".restart-btn");
     const progressText = document.querySelector(".small-text");
 
-    let currentIndex = 0;
+    // ============================
+    // TIMER ELEMENT
+    // ============================
+
+    let timerDisplay = document.getElementById("timerDisplay");
+    let startMissionBtn = document.getElementById("startMissionBtn");
+    let finishMissionBtn = document.getElementById("finishMissionBtn");
+
+    let timer = 60; // default 60 detik
+    let timerInterval = null;
+
+    // ============================
+    // LOAD PROGRESS
+    // ============================
+
+    let currentIndex = parseInt(localStorage.getItem("exerciseProgress")) || 0;
+
+    // ============================
+    // UPDATE UI
+    // ============================
 
     function updateActiveExercise() {
 
-    exercises.forEach((item, index) => {
+        exercises.forEach((item, index) => {
 
-        item.classList.remove("active-exercise");
-        item.classList.remove("locked-exercise");
+            item.classList.remove("active-exercise");
+            item.classList.remove("locked-exercise");
 
-        if (index === currentIndex) {
+            if (index === currentIndex) {
 
-            // latihan aktif
-            item.classList.add("active-exercise");
+                item.classList.add("active-exercise");
 
-            item.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
+                item.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
 
-        } 
+            }
             else if (index > currentIndex) {
 
-                // latihan masa depan dikunci
                 item.classList.add("locked-exercise");
 
             }
 
         });
 
-        let progress = Math.round(((currentIndex + 1) / exercises.length) * 100);
+        let progress = Math.round(((currentIndex) / exercises.length) * 100);
 
         if (progressText) {
-            progressText.textContent = `Pemanasan ${progress}%`;
+            progressText.textContent = `Progress ${progress}%`;
         }
 
     }
 
+    // ============================
+    // TIMER FUNCTION
+    // ============================
+
+    function startTimer(duration) {
+
+        clearInterval(timerInterval);
+
+        timer = duration;
+
+        timerInterval = setInterval(() => {
+
+            timer--;
+
+            if (timerDisplay) {
+                timerDisplay.textContent = timer + " detik";
+            }
+
+            if (timer <= 0) {
+
+                clearInterval(timerInterval);
+
+                missionComplete();
+
+            }
+
+        }, 1000);
+
+    }
 
     // ============================
-    // ▶️ CONTINUE BUTTON
+    // MISI SELESAI
     // ============================
 
-    if (continueBtn) {
+    function missionComplete() {
 
-        continueBtn.addEventListener("click", function () {
+        alert("Misi telah selesai! 🎉");
 
-            if (currentIndex < exercises.length - 1) {
+        currentIndex++;
 
-                currentIndex++;
-                updateActiveExercise();
+        localStorage.setItem("exerciseProgress", currentIndex);
 
-            } else {
+        updateActiveExercise();
 
-                // ============================
-                // ✅ LATIHAN SELESAI
-                // ============================
+        // kalau semua selesai
+        if (currentIndex >= exercises.length) {
 
-                alert("Latihan selesai! 🎉");
+            alert("Semua latihan selesai!");
 
-                // ambil hari sekarang
-                let unlockedDay = parseInt(localStorage.getItem("unlockedDay")) || 2;
-                let currentDay = parseInt(localStorage.getItem("currentDay")) || 2;
+            // unlock hari selanjutnya
+            let unlockedDay = parseInt(localStorage.getItem("unlockedDay")) || 2;
+            let currentDay = parseInt(localStorage.getItem("currentDay")) || 2;
 
-                if (currentDay >= unlockedDay) {
-                    localStorage.setItem("unlockedDay", currentDay + 1);
-                }
+            if (currentDay >= unlockedDay) {
+                localStorage.setItem("unlockedDay", currentDay + 1);
+            }
 
-                // kembali ke halaman program latihan
-                window.location.href = "programlatihan.html";
+            window.location.href = "programlatihan.html";
 
+        }
+
+    }
+
+    // ============================
+    // START BUTTON
+    // ============================
+
+    if (startMissionBtn) {
+
+        startMissionBtn.addEventListener("click", function() {
+
+            startTimer(60); // 60 detik
+        });
+
+    }
+
+    // ============================
+    // FINISH BUTTON
+    // ============================
+
+    if (finishMissionBtn) {
+
+        finishMissionBtn.addEventListener("click", function() {
+
+            clearInterval(timerInterval);
+
+            missionComplete();
+
+        });
+
+    }
+
+    // ============================
+    // VIDEO FIX (FULL PLAY)
+    // ============================
+
+    const videos = document.querySelectorAll("video");
+
+    videos.forEach(video => {
+
+        video.addEventListener("click", function() {
+
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
             }
 
         });
 
-    }
 
+            // =====================================
+            // 🎯 SISTEM MISI + TIMER
+            // =====================================
+
+            const startMissionBtn = document.getElementById("startMissionBtn");
+            const finishMissionBtn = document.getElementById("finishMissionBtn");
+            const timerDisplay = document.getElementById("timerDisplay");
+
+            let missionTime = 60; // default 60 detik
+            let timerInterval = null;
+            let timeLeft = missionTime;
+
+
+            // update tampilan timer
+            function updateTimerDisplay() {
+
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+
+                timerDisplay.textContent =
+                    `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            }
+
+
+            // tombol MULAI MISI
+            if (startMissionBtn) {
+
+                startMissionBtn.addEventListener("click", function() {
+
+                    timeLeft = missionTime;
+
+                    updateTimerDisplay();
+
+                    clearInterval(timerInterval);
+
+                    timerInterval = setInterval(() => {
+
+                        timeLeft--;
+
+                        updateTimerDisplay();
+
+                        if (timeLeft <= 0) {
+
+                            clearInterval(timerInterval);
+
+                            alert("🎉 Misi selesai!");
+
+                            unlockNextExercise();
+
+                        }
+
+                    }, 1000);
+
+                });
+
+            }
+
+
+            // tombol SELESAIKAN MISI manual
+            if (finishMissionBtn) {
+
+                finishMissionBtn.addEventListener("click", function() {
+
+                    clearInterval(timerInterval);
+
+                    alert("🎉 Misi selesai!");
+
+                    unlockNextExercise();
+
+                });
+
+            }
+
+
+            // unlock latihan berikutnya
+            function unlockNextExercise() {
+
+                let unlockedDay =
+                    parseInt(localStorage.getItem("unlockedDay")) || 2;
+
+                let currentDay =
+                    parseInt(localStorage.getItem("currentDay")) || 2;
+
+                if (currentDay >= unlockedDay) {
+
+                    localStorage.setItem(
+                        "unlockedDay",
+                        currentDay + 1
+                    );
+
+                }
+
+            }
+    });
 
     // ============================
-    // 🔁 RESTART BUTTON
+    // INIT
     // ============================
 
-    if (restartBtn) {
 
-        restartBtn.addEventListener("click", function () {
-
-            currentIndex = 0;
-
-            updateActiveExercise();
-
-        });
-
-    }
-
-
-    // ============================
-    // ▶️ INIT
-    // ============================
-
+    
     updateActiveExercise();
+
+    
 
 });
