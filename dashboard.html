@@ -76,5 +76,23 @@
     </nav>
 
     <script src="lang.js"></script>
+
+    <script>
+    // ===============================
+    // 🔐 CEK AKSES DASHBOARD
+    // ===============================
+    const isRegistered = localStorage.getItem("isRegistered");
+    const hasMeasured = localStorage.getItem("hasMeasured");
+
+    if (!isRegistered) {
+        alert("Silakan isi data terlebih dahulu!");
+        window.location.href = "index.html";
+    }
+
+    if (!hasMeasured) {
+        alert("Silakan lakukan pengukuran terlebih dahulu!");
+        window.location.href = "bodyscan.html";
+    }
+</script>
 </body>
 </html>
