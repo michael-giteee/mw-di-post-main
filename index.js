@@ -15,9 +15,11 @@ const translations = {
 
 const languageSelect = document.getElementById('languageSelect');
 
-languageSelect.addEventListener('change', (e) => {
-    changeLanguage(e.target.value);
-});
+if (languageSelect) {
+    languageSelect.addEventListener('change', (e) => {
+        changeLanguage(e.target.value);
+    });
+}
 
 function changeLanguage(lang) {
     document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -32,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.getElementById("registerForm");
 
+    if (!form) return;
+
     form.addEventListener("submit", function (event) {
 
         event.preventDefault();
@@ -41,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const usiaInput = document.getElementById("usia").value;
         const usia = parseInt(usiaInput);
 
+        // VALIDASI
         if (!nama || !email || !usiaInput) {
             alert("Semua data harus diisi!");
             return;
@@ -51,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // KELOMPOK USIA
         let kelompokUsia = "";
 
         if (usia >= 17 && usia <= 55) {
@@ -60,24 +66,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // =====================================
-        // 🔐 RESET STATUS PENGUKURAN USER LAMA
+        // RESET TOTAL STATUS USER SEBELUMNYA
         // =====================================
-        localStorage.removeItem("hasMeasured"); // supaya home terkunci lagi
+        localStorage.removeItem("hasMeasured");
         localStorage.removeItem("lastScanResult");
 
+        // paksa lock lagi
+        localStorage.setItem("hasMeasured", "false");
+
         // =====================================
-        // SET STATUS USER BARU
+        // SET USER BARU
         // =====================================
         localStorage.setItem("isRegistered", "true");
 
-        // simpan data user
         localStorage.setItem("nama", nama);
         localStorage.setItem("email", email);
         localStorage.setItem("usia", usia);
         localStorage.setItem("kelompokUsia", kelompokUsia);
 
-        // pindah halaman
+        // pindah ke bodyscan
         window.location.href = "bodyscan.html";
+
     });
 
 });
