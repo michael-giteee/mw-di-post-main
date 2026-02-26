@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // =====================================
     // 🔐 CEK REGISTER
     // =====================================
+    // fallback default
+    if (!localStorage.getItem("unlockedDay")) {
+        localStorage.setItem("unlockedDay", "2");
+    }
+
     const isRegistered = localStorage.getItem("isRegistered");
 
     if (!isRegistered) {
@@ -10,9 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // =====================================
-    // 🔐 CEK BODY SCAN & SCOLIOMETER
-    // =====================================
     const hasBodyScan = localStorage.getItem("hasBodyScan");
     const hasScoliometer = localStorage.getItem("hasScoliometer");
 
@@ -75,4 +77,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
-});
+}); 
