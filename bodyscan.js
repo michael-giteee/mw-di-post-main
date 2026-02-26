@@ -106,26 +106,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateDisplay(0);
 
-        const homeBtn = document.getElementById("homeBtn");
-    const homeLabel = document.getElementById("homeLabel");
+    const homeBtn = document.getElementById("homeBtn");
+    const lockIcon = document.getElementById("lockIcon");
 
-    // cek apakah sudah pernah scan
+    // cek saat halaman dibuka
     if (localStorage.getItem("hasMeasured") === "true") {
-        unlockHome();
+        unlockHomeInstant();
     }
 
     function unlockHome() {
+
         homeBtn.classList.remove("locked");
-        homeLabel.textContent = "Home";
+
+        // animasi gembok
+        lockIcon.textContent = "🔓";
+        lockIcon.classList.add("unlocking");
+
+        setTimeout(() => {
+            lockIcon.remove(); // hilangkan icon setelah animasi
+            homeBtn.classList.add("unlocked");
+        }, 400);
     }
 
-    // ketika selesai scan
-    function unlockAfterScan() {
-        localStorage.setItem("hasMeasured", "true");
-        unlockHome();
+    function unlockHomeInstant() {
+        homeBtn.classList.remove("locked");
+        lockIcon.remove();
+        homeBtn.classList.add("unlocked");
     }
 
-    // event klik home
     homeBtn.addEventListener("click", function(e) {
         e.preventDefault();
 
