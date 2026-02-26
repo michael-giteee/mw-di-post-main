@@ -28,16 +28,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    // 🧠 Jika Kelompok 2 (55+)
+    // Jika kelompok senior
     if (kelompok === "kelompok2") {
 
-        // Ubah judul program
         const weekTitle = document.querySelector(".week-header h2");
+
         if (weekTitle) {
             weekTitle.textContent = "PROGRAM LATIHAN SENIOR";
         }
 
-        // Ubah jumlah latihan jadi lebih ringan
         document.querySelectorAll(".day-info").forEach(item => {
             if (!item.textContent.includes("Istirahat")) {
                 item.textContent = "10 Latihan Ringan";
@@ -45,35 +44,105 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+
     // =====================================
-    // KODE LAMA KAMU (DIPERTAHANKAN)
+    // 🔒 SISTEM KUNCI BERURUTAN
     // =====================================
+
+    // default mulai dari hari 1
+    let currentDay = parseInt(localStorage.getItem("currentDay")) || 1;
+
+    const allDays = document.querySelectorAll(".day-item");
+
+    allDays.forEach(item => {
+
+        const day = parseInt(item.dataset.day);
+        const button = item.querySelector(".start-btn");
+
+        if (!button) return;
+
+        if (day > currentDay) {
+
+            // 🔒 terkunci
+            item.classList.remove("active", "completed");
+            item.classList.add("locked");
+
+            button.disabled = true;
+            button.textContent = "Terkunci 🔒";
+
+        } 
+        else if (day === currentDay) {
+
+            // 🔓 aktif
+            item.classList.remove("locked", "completed");
+            item.classList.add("active");
+
+            button.disabled = false;
+            button.textContent = "Mulai";
+
+        } 
+        else {
+
+            // ✅ sudah selesai
+            item.classList.remove("locked", "active");
+            item.classList.add("completed");
+
+            button.disabled = false;
+            button.textContent = "Ulangi";
+
+        }
+
+    });
+
+
+    // =====================================
+    // HANDLE CLICK LATIHAN
+    // =====================================
+
     const allStartBtns = document.querySelectorAll('.start-btn');
-    const activeDayNumber = 2;
-    const listBackBtn = document.querySelector('.list-back-btn');
-    
-    if (listBackBtn) {
-        listBackBtn.href = 'dashboard.html';
-        listBackBtn.style.visibility = 'visible';
-    }
-    
+
     allStartBtns.forEach(button => {
+
         button.addEventListener('click', function(e) {
+
             e.preventDefault();
-            const day = this.getAttribute('data-day');
-            
+
+            const day = parseInt(this.getAttribute('data-day'));
+
             if (this.classList.contains('rest-day-btn')) {
-                alert(`Hari ${day}: Istirahat! Nikmati pemulihan Anda.`);
-            } 
-            else if (parseInt(day) === activeDayNumber) {
-                
-                // 🔐 Kalau Kelompok 2, arahkan ke versi senior
-                window.location.href = 'hari2.html';
+
+                alert(`Hari ${day}: Istirahat!`);
+                return;
+
+            }
+
+            if (day <= currentDay) {
+
+                // simpan hari aktif
+                localStorage.setItem("selectedDay", day);
+
+                // SEMUA menuju hari2.html
+                window.location.href = "hari2.html";
+
             } 
             else {
-                alert(`Anda mengklik 'Mulai' untuk Hari ${day}. Anda dapat memulai hari ini kapan saja!`);
+
+                alert("Hari masih terkunci 🔒");
+
             }
+
         });
+
     });
+
+
+    // =====================================
+    // BACK BUTTON
+    // =====================================
+    const listBackBtn = document.querySelector('.list-back-btn');
+
+    if (listBackBtn) {
+        listBackBtn.href = 'dashboard.html';
+    }
 
 });
