@@ -190,3 +190,102 @@ body {
     font-size: 20px;
     margin-bottom: 3px;
 }
+
+
+
+/* =========================
+   RESULT PANEL
+========================= */
+.result-panel {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: 100%;
+    max-width: 450px;
+    background: #ffffff;
+    padding: 25px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: transform 0.4s ease;
+    z-index: 999;
+}
+
+.result-panel.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.result-panel h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.result-angle {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.result-status {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.result-close {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: #007bff;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.result-close:hover {
+    transform: scale(1.05);
+}
+
+/* =========================
+   STATUS WARNA DINAMIS
+========================= */
+.result-status.normal {
+    color: #28a745;
+}
+
+.result-status.warning {
+    color: #ffc107;
+}
+
+.result-status.danger {
+    color: #dc3545;
+}
+
+/* =========================
+   LANDSCAPE OPTIMIZATION
+========================= */
+@media screen and (orientation: landscape) {
+
+    .meter-arc-container {
+        width: 350px;
+        height: 170px;
+    }
+
+    .meter-arc {
+        width: 350px;
+        height: 350px;
+    }
+
+    .meter-needle {
+        height: 130px;
+        top: 120px;
+    }
+
+    .measurement-value {
+        font-size: 70px;
+    }
+
+}
