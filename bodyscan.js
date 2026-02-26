@@ -53,19 +53,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function finishMeasurement() {
-        isMeasuring = false;
-        clearInterval(intervalId);
+    isMeasuring = false;
+    clearInterval(intervalId);
 
-        pauseBtn.style.display = "none";
-        startStopBtn.style.display = "inline-block";
+    pauseBtn.style.display = "none";
+    startStopBtn.style.display = "inline-block";
 
-        showResult(lastValue);
+    showResult(lastValue);
 
-        // ✅ simpan status pengukuran
-        localStorage.setItem("hasMeasured", "true");
-        unlockHome();
-        localStorage.setItem("lastScanResult", lastValue);
-    }
+    // ✅ simpan SEMUA status supaya semua halaman sinkron
+    localStorage.setItem("hasMeasured", "true");
+    localStorage.setItem("hasBodyScan", "true");
+    localStorage.setItem("hasScoliometer", "true");
+
+    unlockHome();
+
+    localStorage.setItem("lastScanResult", lastValue);
+}
 
     function showResult(value) {
         finalAngle.textContent = value + "°";
@@ -147,3 +151,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
