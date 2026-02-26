@@ -1,15 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // ============================
+    // 🔐 CEK LOGIN USER (INI YANG PENTING)
+    // ============================
+
+    const nama = localStorage.getItem("nama");
+
+    if (!nama) {
+        window.location.href = "index.html";
+        return;
+    }
+
+    // ============================
     // 🔒 CEK KELOMPOK USIA
     // ============================
 
     const kelompok = localStorage.getItem("kelompokUsia");
-
-    if (!kelompok) {
-        window.location.href = "index.html";
-        return;
-    }
 
     const allExercises = document.querySelectorAll(".exercise-item");
     let exercises = Array.from(allExercises);
