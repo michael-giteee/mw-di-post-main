@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         }
 
-                    }, 1000);
+                    }, 1);
 
                 });
 
@@ -309,3 +309,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
 });
+
