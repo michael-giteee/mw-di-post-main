@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const allExercises = document.querySelectorAll(".exercise-item");
-    let exercises = Array.from(allExercises); // ubah ke array biar bisa difilter
+    let exercises = Array.from(allExercises);
 
     // ============================
     // 🧠 MODE KELOMPOK 2 (Senior)
@@ -21,22 +21,24 @@ document.addEventListener('DOMContentLoaded', function() {
     if (kelompok === "kelompok2") {
 
         const title = document.querySelector("h1");
+
         if (title) {
             title.textContent = "Hari 2 - Program Senior";
         }
 
         document.body.classList.add("senior-mode");
 
-        // 🔥 Batasi hanya 5 latihan pertama
         exercises.forEach((item, index) => {
+
             if (index >= 5) {
                 item.style.display = "none";
             }
+
         });
 
-        // Update array hanya yg tampil
         exercises = exercises.slice(0, 5);
     }
+
 
     // ============================
     // ▶️ SISTEM LANJUTKAN LATIHAN
@@ -49,13 +51,22 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentIndex = 0;
 
     function updateActiveExercise() {
+
         exercises.forEach((item, index) => {
+
             item.classList.remove("active-exercise");
 
             if (index === currentIndex) {
+
                 item.classList.add("active-exercise");
-                item.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                item.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
             }
+
         });
 
         let progress = Math.round(((currentIndex + 1) / exercises.length) * 100);
@@ -63,25 +74,74 @@ document.addEventListener('DOMContentLoaded', function() {
         if (progressText) {
             progressText.textContent = `Pemanasan ${progress}%`;
         }
+
     }
+
+
+    // ============================
+    // ▶️ CONTINUE BUTTON
+    // ============================
 
     if (continueBtn) {
+
         continueBtn.addEventListener("click", function () {
+
             if (currentIndex < exercises.length - 1) {
+
                 currentIndex++;
                 updateActiveExercise();
+
             } else {
+
+                // ============================
+                // ✅ LATIHAN SELESAI
+                // ============================
+
                 alert("Latihan selesai! 🎉");
+
+                // ambil hari sekarang
+                let currentDay = parseInt(localStorage.getItem("currentDay")) || 1;
+
+                let selectedDay = parseInt(localStorage.getItem("selectedDay")) || 1;
+
+                // buka hari berikutnya
+                if (selectedDay >= currentDay) {
+
+                    localStorage.setItem("currentDay", selectedDay + 1);
+
+                }
+
+                // kembali ke halaman program latihan
+                window.location.href = "programlatihan.html";
+
             }
+
         });
+
     }
+
+
+    // ============================
+    // 🔁 RESTART BUTTON
+    // ============================
 
     if (restartBtn) {
+
         restartBtn.addEventListener("click", function () {
+
             currentIndex = 0;
+
             updateActiveExercise();
+
         });
+
     }
 
+
+    // ============================
+    // ▶️ INIT
+    // ============================
+
     updateActiveExercise();
+
 });
