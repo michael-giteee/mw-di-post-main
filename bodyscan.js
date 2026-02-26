@@ -5,9 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // ====================================
     const isRegistered = localStorage.getItem("isRegistered");
 
-    if (isRegistered !== "true") {
-        window.location.replace("index.html");
-        return;
+    if (!isRegistered) {
+        window.location.href = "index.html";
     }
 
     // ====================================
@@ -107,3 +106,4 @@ document.addEventListener("DOMContentLoaded", function () {
     updateDisplay(0);
 
 });
+
