@@ -108,15 +108,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert("Latihan selesai! 🎉");
 
                 // ambil hari sekarang
-                let currentDay = parseInt(localStorage.getItem("currentDay")) || 1;
+                let unlockedDay = parseInt(localStorage.getItem("unlockedDay")) || 2;
+                let currentDay = parseInt(localStorage.getItem("currentDay")) || 2;
 
-                let selectedDay = parseInt(localStorage.getItem("selectedDay")) || 1;
-
-                // buka hari berikutnya
-                if (selectedDay >= currentDay) {
-
-                    localStorage.setItem("currentDay", selectedDay + 1);
-
+                if (currentDay >= unlockedDay) {
+                    localStorage.setItem("unlockedDay", currentDay + 1);
                 }
 
                 // kembali ke halaman program latihan
